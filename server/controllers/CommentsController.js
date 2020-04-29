@@ -30,14 +30,14 @@ export class CommentsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      let data = await commentsService.getById(req.params.id, req.userInfo.id)
+      let data = await commentsService.getById(req.params.id, req.userInfo.email)
       return res.send(data)
     } catch (error) { next(error) }
   }
 
   async create(req, res, next) {
     try {
-      req.body.creatorId = req.userInfo.id
+      req.body.creatorId = req.userInfo.email
       let data = await commentsService.create(req.body)
       return res.status(201).send(data)
     } catch (error) { next(error) }
@@ -45,7 +45,7 @@ export class CommentsController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      let data = await commentsService.edit(req.params.id, req.userInfo.id, req.body)
+      let data = await commentsService.edit(req.params.id, req.userInfo.email, req.body)
       return res.send(data)
     } catch (error) { next(error) }
   }

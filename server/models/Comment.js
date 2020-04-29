@@ -5,7 +5,7 @@ let ObjectId = Schema.Types.ObjectId
 const Comment = new Schema({
   postId: { type: ObjectId, ref: "Post", required: true },
   content: { type: String, required: true },
-  creatorId: { type: ObjectId, ref: "User", required: true },
+  creatorEmail: { type: String, required: true },
   likes: [{ type: ObjectId, ref: "User" }],
   support: { type: Boolean, required: true },
 
@@ -13,9 +13,9 @@ const Comment = new Schema({
 
 Comment.virtual("creator",
   {
-    localField: "creatorId",
+    localField: "creatorEmail",
     ref: "Profile",
-    foreignField: "id",
+    foreignField: "email",
     justOne: true
   })
 
