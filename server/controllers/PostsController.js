@@ -20,7 +20,7 @@ export class PostsController extends BaseController {
 
     async getAll(req, res, next) {
         try {
-            let data = await postsService.getAll(req.user.email);
+            let data = await postsService.getAll();
             return res.send(data);
         } catch (error) {
             next(error);
@@ -37,7 +37,7 @@ export class PostsController extends BaseController {
 
     async getById(req, res, next) {
         try {
-            let data = await postsService.getById(req.params.id, req.userInfo.email);
+            let data = await postsService.getById(req.params.id);
             return res.send(data);
         } catch (error) {
             next(error);

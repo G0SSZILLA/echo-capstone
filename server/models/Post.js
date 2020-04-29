@@ -6,9 +6,8 @@ let ObjectId = Schema.Types.ObjectId
 const Post = new Schema({
     title: { type: String, required: true },
     creatorEmail: { type: String, required: true },
-    content: { type: String, required: true },
+    content: { type: String, required: false },
     picture: { type: String },
-    userId: { type: ObjectId, ref: 'User' },
 
 }, { timestamps: true, toJSON: { virtuals: true } })
 

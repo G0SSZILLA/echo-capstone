@@ -3,18 +3,24 @@ import { BadRequest } from "../utils/Errors"
 
 
 class PostsService {
-    async getAll(userEmail) {
-        return await dbContext.Posts.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+    async getAll() {
+        return await dbContext.Posts.find({}).populate("creator", "name picture")
     }
 
-    async getById(id, userEmail) {
-        let data = await dbContext.Posts.findOne({ _id: id, creatorEmail: userEmail })
+    async getById(id) {
+        let data = await dbContext.Posts.findOne({ _id: id})
         if (!data) {
             throw new BadRequest("Invalid ID or you do not own this board")
         }
         return data
     }
-
+        async getPostsByUserEmail(userEmail) {
+        let data = await dbContext.Posts.find({ creatorEmail: userEmail })
+        if (!data) {
+            throw new BadRequest("Invalid ID or you do not own this board")
+        }
+        return data
+    }
     async create(rawData) {
         let data = await dbContext.Posts.create(rawData)
         return data
