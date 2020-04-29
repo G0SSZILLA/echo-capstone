@@ -8,13 +8,13 @@ class PostsService {
     }
 
     async getById(id) {
-        let data = await dbContext.Posts.findOne({ _id: id})
+        let data = await dbContext.Posts.findOne({ _id: id })
         if (!data) {
-            throw new BadRequest("Invalid ID or you do not own this board")
+            throw new BadRequest("Invalid ID or you do not own this Post")
         }
         return data
     }
-        async getPostsByUserEmail(userEmail) {
+    async getPostsByUserEmail(userEmail) {
         let data = await dbContext.Posts.find({ creatorEmail: userEmail })
         if (!data) {
             throw new BadRequest("Invalid ID or you do not own this Post")
