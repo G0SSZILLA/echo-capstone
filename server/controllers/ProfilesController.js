@@ -12,8 +12,8 @@ export class ProfilesController extends BaseController {
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get("", this.getUserProfile)
-      .get("/:id/comment", this.getCommentsByUserId)
-      .get("/:id/post", this.getPostsByUserId)
+      .get("/:id/comment", this.getCommentsByUserEmail)
+      .get("/:id/post", this.getPostsByUserEmail)
       .put("/:id", this.edit)
       .delete("/:id", this.delete);
   }
@@ -42,17 +42,18 @@ export class ProfilesController extends BaseController {
       next(error);
     }
   }
-  async getCommentsByUserId(req, res, next) {
+  async getCommentsByUserEmail(req, res, next) {
     try {
-      let data = await commentsService.getCommentsByUserId(req.params.id);
+      let data = await commentsService.getCommentsByUserEmail(req.userInfo.email);
       return res.send(data);
     } catch (error) {
       next(error);
     }
   }
-  async getPostsByUserId(req, res, next) {
+  async getPostsByUserEmail(req, res, next) {
     try {
-      let data = await postsService.getPostsByUserId(req.params.id);
+      let data = await postsService.getPostsByUserEmail(req.userInfo.email);
+      return res.sent(req.data)
     } catch (error) {
       next(error);
     }
