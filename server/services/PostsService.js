@@ -26,7 +26,7 @@ class PostsService {
         return data
     }
 
-    async edit(id, userEmail, update) {
+    async edit(id, update) {
         let data = await dbContext.Posts.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
         if (!data) {
             throw new BadRequest("Invalid ID or you do not own this Post");
@@ -34,8 +34,8 @@ class PostsService {
         return data;
     }
 
-    async delete(id, userEmail) {
-        let data = await dbContext.Posts.findOneAndRemove({ _id: id, creatorEmail: userEmail });
+    async delete(id) {
+        let data = await dbContext.Posts.findOneAndRemove({ _id: id});
         if (!data) {
             throw new BadRequest("Invalid ID or you do not own this Post");
         }

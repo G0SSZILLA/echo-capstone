@@ -28,15 +28,15 @@ class CommentsService {
     return data;
   }
 
-  async delete(id, userEmail) {
-    let data = await dbContext.Comments.findOneAndRemove({ _id: id, creatorEmail: userEmail });
+  async delete(id) {
+    let data = await dbContext.Comments.findOneAndRemove({ _id: id});
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this comment");
     }
   }
 
-  async getCommentsByPostId(postId) {
-    let data = await dbContext.Comments.find({ postId: postId }).populate("creator", "name picture")
+  async getCommentsByPostId(postId, support) {
+    let data = await dbContext.Comments.find({ postId: postId, support: support }).populate("creator", "name picture")
     return data
   }
   async getCommentsByUserEmail(userEmail) {
