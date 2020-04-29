@@ -39,7 +39,7 @@ class CommentsService {
     let data = await dbContext.Comments.find({ postId: postId }).populate("creator", "name picture")
     return data
   }
-  async getCommentsByUser(user) {
+  async getCommentsByUserEmail(user) {
     let data = await dbContext.Comments.find({ creatorEmail: user.email })
     return data
   }
