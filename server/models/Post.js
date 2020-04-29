@@ -8,6 +8,8 @@ const Post = new Schema({
     creatorEmail: { type: String, required: true },
     content: { type: String, required: false },
     picture: { type: String },
+    support: [{ type: String, required: false }],
+    disregard: [{ type: String, required: false }],
 
 }, { timestamps: true, toJSON: { virtuals: true } })
 
