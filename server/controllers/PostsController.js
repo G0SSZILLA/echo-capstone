@@ -10,7 +10,7 @@ export class PostController extends BaseController {
         this.router
             .use(auth0provider.getAuthorizedUserInfo)
             .get("", this.getAll)
-            .get('/:id/comments', this.getCommentByPostId)
+            .get('/:id/comments', this.getCommentsByPostId)
             .get("/:id", this.getById)
             .post("", this.create)
             .put("/:id", this.edit)
@@ -26,7 +26,7 @@ export class PostController extends BaseController {
             next(error);
         }
     }
-    async getCommentByPostId(req, res, next) {
+    async getCommentsByPostId(req, res, next) {
         try {
             let data = await commentService.getCommentByPostId(req.params.id, req.userInfo.email)
             return res.send(data)
