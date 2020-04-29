@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext";
-
+import {BadRequest} from "../utils/Errors"
 // Private Methods
 
 /**
@@ -45,6 +45,16 @@ function sanitizeBody(body) {
 }
 
 class ProfileService {
+  async delete(id) {
+    let data = await dbContext.Profile.findOneAndRemove({
+      _id: id
+    })
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not own this Profile");
+  }
+  return data
+  }
+  
   /**
    * Provided an array of user emails will return an array of user profiles with email picture and name
    * @param {String[]} emails Array of email addresses to lookup users by

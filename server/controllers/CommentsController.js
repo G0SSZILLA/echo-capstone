@@ -1,14 +1,14 @@
 import express from 'express'
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
-import { boardService } from '../services/BoardService'
+import { commentsService } from '../services/CommentsService'
 
 
 
 //PUBLIC
-export class BoardsController extends BaseController {
+export class CommentsController extends BaseController {
   constructor() {
-    super("api/boards")
+    super("api/comments")
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get('', this.getAll)
@@ -21,8 +21,8 @@ export class BoardsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      //only gets boards by user who is logged in
-      let data = await boardService.getAll(req.userInfo.email)
+      //only gets comments by user who is logged in
+      let data = await commentsService.getAll()
       return res.send(data)
     }
     catch (err) { next(err) }
@@ -30,29 +30,29 @@ export class BoardsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      let data = await boardService.getById(req.params.id, req.userInfo.email)
+      let data = await commentsService.getById(req.params.id, req.userInfo.id)
       return res.send(data)
     } catch (error) { next(error) }
   }
 
   async create(req, res, next) {
     try {
-      req.body.creatorEmail = req.userInfo.email
-      let data = await boardService.create(req.body)
+      req.body.creatorId = req.userInfo.id
+      let data = await commentsService.create(req.body)
       return res.status(201).send(data)
     } catch (error) { next(error) }
   }
 
   async edit(req, res, next) {
     try {
-      let data = await boardService.edit(req.params.id, req.userInfo.email, req.body)
+      let data = await commentsService.edit(req.params.id, req.userInfo.id, req.body)
       return res.send(data)
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
-      await boardService.delete(req.params.id, req.userInfo.email)
+      await commentsService.delete(req.params.id, req.userInfo.id)
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }
