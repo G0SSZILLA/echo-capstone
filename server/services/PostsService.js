@@ -2,7 +2,7 @@ import { dbContext } from "../db/DbContext"
 import { BadRequest } from "../utils/Errors"
 
 
-class PostService {
+class PostsService {
     async getAll(userEmail) {
         return await dbContext.Posts.find({ creatorEmail: userEmail }).populate("creator", "name picture")
     }
