@@ -7,8 +7,8 @@ class CommentsService {
     return await dbContext.Comments.find().populate("creator", "name picture")
   }
 
-  async getById(id, userId) {
-    let data = await dbContext.Comments.findOne({ _id: id, creatorId: userId })
+  async getById(id, userEmail) {
+    let data = await dbContext.Comments.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this comment")
     }
@@ -20,16 +20,16 @@ class CommentsService {
     return data
   }
 
-  async edit(id, userId, update) {
-    let data = await dbContext.Comments.findOneAndUpdate({ _id: id, creatorId: userId }, update, { new: true })
+  async edit(id, userEmail, update) {
+    let data = await dbContext.Comments.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this comment");
     }
     return data;
   }
 
-  async delete(id, userId) {
-    let data = await dbContext.Comments.findOneAndRemove({ _id: id, creatorId: userId });
+  async delete(id, userEmail) {
+    let data = await dbContext.Comments.findOneAndRemove({ _id: id, creatorEmail: userEmail });
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this comment");
     }
@@ -39,8 +39,8 @@ class CommentsService {
     let data = await dbContext.Comments.find({ postId: postId }).populate("creator", "name picture")
     return data
   }
-  async getCommentsByUserId(userId) {
-    let data = await dbContext.Comments.find({ creatorId: userId })
+  async getCommentsByUser(userEmail) {
+    let data = await dbContext.Comments.find({ creatorEmail: userEmail })
     return data
   }
 }
