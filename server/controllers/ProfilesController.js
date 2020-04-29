@@ -45,7 +45,7 @@ export class ProfilesController extends BaseController {
   async getCommentsByUserEmail(req, res, next) {
     try {
       let data = await commentsService.getCommentsByUserEmail(req.userInfo.email);
-      return res.send(data);
+      return res.send(req.data);
     } catch (error) {
       next(error);
     }
