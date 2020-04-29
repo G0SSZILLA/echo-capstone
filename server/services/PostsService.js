@@ -10,7 +10,7 @@ class PostsService {
     async getById(id, userEmail) {
         let data = await dbContext.Posts.findOne({ _id: id, creatorEmail: userEmail })
         if (!data) {
-            throw new BadRequest("Invalid ID or you do not own this board")
+            throw new BadRequest("Invalid ID or you do not own this Post")
         }
         return data
     }
@@ -23,7 +23,7 @@ class PostsService {
     async edit(id, userEmail, update) {
         let data = await dbContext.Posts.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
         if (!data) {
-            throw new BadRequest("Invalid ID or you do not own this board");
+            throw new BadRequest("Invalid ID or you do not own this Post");
         }
         return data;
     }
@@ -31,7 +31,7 @@ class PostsService {
     async delete(id, userEmail) {
         let data = await dbContext.Posts.findOneAndRemove({ _id: id, creatorEmail: userEmail });
         if (!data) {
-            throw new BadRequest("Invalid ID or you do not own this board");
+            throw new BadRequest("Invalid ID or you do not own this Post");
         }
     }
 
