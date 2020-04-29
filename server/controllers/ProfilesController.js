@@ -3,28 +3,28 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { profilesService } from "../services/ProfilesService";
 // @ts-ignore
-import commentsService from "../services/CommentsService"
+import { commentsService } from "../services/CommentsService";
 // @ts-ignore
-import postsService from "../services/PostsService"
+import { postsService } from "../services/PostsService";
 export class ProfilesController extends BaseController {
-  
   constructor() {
     super("api/profile");
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get("", this.getUserProfile)
-      .get ("/:id/comment")
-      .get("/;id/post")
+      .get("/:id/comment", this.getCommentsByUserId)
+      .get("/:id/post", this.getPostsByUserId)
       .put("/:id", this.edit)
       .delete("/:id", this.delete);
   }
   async delete(req, res, next) {
-try {
-  await profilesService.delete(req.params.id)
-  return res.send("Profile Deleted")
-} catch (error) {
-  next(error)
-}  }
+    try {
+      await profilesService.delete(req.params.id);
+      return res.send("Profile Deleted");
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async getUserProfile(req, res, next) {
     try {
@@ -42,19 +42,19 @@ try {
       next(error);
     }
   }
-async getCommentsByUserId(req,res,next){
-  try {
-    let data = await commentsService.getCommentsByUserId(req.params.id)
-    return res.send(data)
-  } catch (error) {
-    next(error)
+  async getCommentsByUserId(req, res, next) {
+    try {
+      let data = await commentsService.getCommentsByUserId(req.params.id);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
   }
-}
-async getPostsByUserId(req,res,next){
-  try {
-    let data = await postsService.getPostsByUserId(req.params.id)
-  } catch (error) {
-    next(error)
+  async getPostsByUserId(req, res, next) {
+    try {
+      let data = await postsService.getPostsByUserId(req.params.id);
+    } catch (error) {
+      next(error);
+    }
   }
-}
 }
