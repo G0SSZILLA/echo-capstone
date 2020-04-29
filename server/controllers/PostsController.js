@@ -2,7 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { postsService } from "../services/PostsService";
-import { commentService } from '../services/CommentsService'
+import { commentsService } from '../services/CommentsService'
 
 export class PostsController extends BaseController {
     constructor() {
