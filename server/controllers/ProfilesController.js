@@ -13,6 +13,8 @@ export class ProfilesController extends BaseController {
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get("", this.getUserProfile)
+      .get ("/:id/comment")
+      .get("/;id/post")
       .put("/:id", this.edit)
       .delete("/:id", this.delete);
   }
