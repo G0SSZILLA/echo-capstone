@@ -22,7 +22,7 @@ export class CommentsController extends BaseController {
   async getAll(req, res, next) {
     try {
       //only gets comments by user who is logged in
-      let data = await commentService.getAll(req.userInfo.email)
+      let data = await commentsService.getAll()
       return res.send(data)
     }
     catch (err) { next(err) }
@@ -30,29 +30,29 @@ export class CommentsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      let data = await commentService.getById(req.params.id, req.userInfo.email)
+      let data = await commentsService.getById(req.params.id, req.userInfo.id)
       return res.send(data)
     } catch (error) { next(error) }
   }
 
   async create(req, res, next) {
     try {
-      req.body.creatorEmail = req.userInfo.email
-      let data = await commentService.create(req.body)
+      req.body.creatorId = req.userInfo.id
+      let data = await commentsService.create(req.body)
       return res.status(201).send(data)
     } catch (error) { next(error) }
   }
 
   async edit(req, res, next) {
     try {
-      let data = await commentService.edit(req.params.id, req.userInfo.email, req.body)
+      let data = await commentsService.edit(req.params.id, req.userInfo.id, req.body)
       return res.send(data)
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
-      await commentService.delete(req.params.id, req.userInfo.email)
+      await commentsService.delete(req.params.id, req.userInfo.id)
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }
