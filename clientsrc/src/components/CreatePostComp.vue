@@ -1,5 +1,5 @@
 <template>
-  <div class="createPostComp container-fluid">
+  <div class="createPostComp">
     <div
       class="modal fade"
       id="orangeModalSubscription"
@@ -9,7 +9,7 @@
     >
       <div class="modal-dialog modal-notify modal-warning" role="document">
         <!--Content-->
-        <div class="modal-content w-75 m-auto">
+        <div class="modal-content m-auto">
           <!--Header-->
           <div class="modal-header text-center">
             <h4 class="modal-title white-text w-100 font-weight-bold py-2">Create a Post</h4>
@@ -61,7 +61,7 @@
     <div class="text-center">
       <a
         href
-        class="btn bg-dark text-white shadow float-right mr-4 mt-3"
+        class="btn bg-dark text-white shadow float-right mr-2 mt-3"
         data-toggle="modal"
         data-target="#orangeModalSubscription"
         style="border-radius: 50%"

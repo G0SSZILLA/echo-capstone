@@ -1,9 +1,9 @@
 <template>
-  <div class="home">
+  <div class="home container-fluid">
     <div class="row">
-      <div class="col-2"></div>
-      <div class="col-8"></div>
-      <div class="col-2">
+      <div class="col-3"></div>
+      <div class="col-6"></div>
+      <div class="col-3">
    <CreatePostComp v-if="$auth.isAuthenticated" />
       </div>
     </div>
