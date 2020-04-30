@@ -69,17 +69,18 @@ export default new Vuex.Store({
 
         async getPost({ commit, dispatch }, postId) {
             try {
-                let res = await api.get("posts" + postId, postId);
+                let res = await api.get(`posts/${postId}`)
                 commit("setActivePost", res.data);
             } catch (error) {
                 console.error(error);
             }
         },
 
-        async addPost({ commit, dispatch }, postId) {
+        async addPost({ commit, dispatch }, postData) {
             try {
-                let res = await api.post("posts", postId);
-                console.log("addPost from store", postId);
+                let res = await api.post("posts", postData);
+                console.log("addPost from store", postData);
+                // NOTE do we want this to push us to the post details page
                 dispatch("getPosts");
             } catch (error) {
                 console.error(error, "addPost in store failing");
