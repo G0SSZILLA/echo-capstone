@@ -22,6 +22,7 @@ export default new Vuex.Store({
         post: {},
         activePost: {},
         posts: [],
+
     },
     mutations: {
         setUser(state, user) {
@@ -47,10 +48,18 @@ export default new Vuex.Store({
         },
         async getProfile({ commit }) {
             try {
-                let res = await api.get("/profile");
+                let res = await api.get("profile");
                 commit("setUser", res.data);
             } catch (err) {
                 console.error(err);
+            }
+        },
+
+        async addUserInput ({commit, dispatch} ,postData) {
+            try {
+                let res = await api.put('posts/' + postData.id, postData)
+            } catch (err) {
+                console.error(err)
             }
         },
         //#endregion
