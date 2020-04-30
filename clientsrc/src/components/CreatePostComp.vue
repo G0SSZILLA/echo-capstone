@@ -31,12 +31,25 @@
               <input type="text" id="form2" class="form-control" v-model="newPost.content" />
               <label data-error="wrong" data-success="right" for="form2">Content</label>
             </div>
+
+            <div class="md-form">
+              <i class="fas prefix grey-text"></i>
+              <input
+                type="file"
+                id="form4"
+                class="form-control"
+                accept="image/*"
+                @change="encodeImage"
+              />
+              <label data-error="wrong" data-success="right" for="form4">Add Image</label>
+            </div>
+            <div id="imageUpload">
+            </div>
           </div>
 
           <!--Footer-->
           <div class="modal-footer justify-content-center">
             <button
-            
               type="button"
               class="btn btn-primary waves-effect ml-5"
               data-dismiss="modal"
@@ -75,6 +88,22 @@ export default {
     addPost() {
       this.$store.dispatch("addPost", this.newPost);
       this.newPost = {};
+    },
+
+    async encodeImage(event) {
+      let file = event.target.files[0];
+      let reader = new FileReader();
+      reader.onload = event => {
+        this.newPost.picture = reader.result;
+        let img = document.createElement("img")
+        img.src = reader.result
+        img.classList.add("img-fluid")
+        document.getElementById("imageUpload").innerHTML = ""
+        document.getElementById("imageUpload").appendChild(img);
+      };
+      reader.onerror = err => console.error(err);
+      await reader.readAsDataURL(file);
+      // NOTE sweet alert err for invalid picture with betasaur
     }
   },
   components: {}
