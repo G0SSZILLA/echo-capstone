@@ -1,5 +1,5 @@
 <template>
-  <div class="createPostComp">
+  <div class="createPostComp container-fluid">
     <div
       class="modal fade"
       id="orangeModalSubscription"
@@ -9,7 +9,7 @@
     >
       <div class="modal-dialog modal-notify modal-warning" role="document">
         <!--Content-->
-        <div class="modal-content">
+        <div class="modal-content w-75 m-auto">
           <!--Header-->
           <div class="modal-header text-center">
             <h4 class="modal-title white-text w-100 font-weight-bold py-2">Create a Post</h4>
@@ -111,4 +111,5 @@ export default {
 
 
 <style scoped>
+
 </style>
