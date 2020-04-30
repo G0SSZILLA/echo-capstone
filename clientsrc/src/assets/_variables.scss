@@ -1,5 +1,4 @@
 $body-bg: #f3f3f0;
-
 $primary: #007BFF;
 $secondary: #6c757d;
 $danger: #DC3545;
@@ -7,9 +6,8 @@ $success: #28A745;
 $warning: #FFC107;
 $info: #17A2B8;
 $light: #F8F9FA;
-$dark: #343A40;
+$dark: rgba(12, 12, 12, 0.336);
 $white: #FFFFFF;
-
 $blue: blue;
 $indigo: indigo;
 $purple: purple;
@@ -23,23 +21,7 @@ $cyan: cyan;
 $white: white;
 $gray: gray;
 $gray-dark: darkslategray;
-
-$colors: (
-"blue": $blue,
-"indigo": $indigo,
-"purple": $purple,
-"pink": $pink,
-"red": $red,
-"orange": $orange,
-"yellow": $yellow,
-"green": $green,
-"teal": $teal,
-"cyan": $cyan,
-"white": $white,
-"gray": $gray,
-"gray-dark": $gray-dark
-) !default;
-
+$colors: ( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "red": $red, "orange": $orange, "yellow": $yellow, "green": $green, "teal": $teal, "cyan": $cyan, "white": $white, "gray": $gray, "gray-dark": $gray-dark) !default;
 // .btn-primary {
 //   color: $light;
 //   background-color: $primary;
