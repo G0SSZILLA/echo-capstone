@@ -1,5 +1,9 @@
 <template>
-  <div class="home">
+  <div class="home container-fluid">
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6"></div>
+      <div class="col-3">
    <CreatePostComp v-if="$auth.isAuthenticated" />
    <PostComp v-for='post in posts' :key='post.id' :postData='post'/>
   </div>
