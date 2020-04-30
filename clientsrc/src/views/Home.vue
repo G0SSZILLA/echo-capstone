@@ -1,11 +1,12 @@
 <template>
   <div class="home">
-   
+   <CreatePostComp v-if="$auth.isAuthenticated" />
   </div>
 </template>
 
 
 <script>
+import CreatePostComp from '../components/CreatePostComp.vue'
 export default {
   name: "home",
   data() {
@@ -13,7 +14,7 @@ export default {
   },
   computed: {},
   methods: {},
-  components: {}
+  components: {CreatePostComp, }
 };
 </script>
 

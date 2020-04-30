@@ -12,8 +12,8 @@
         <div class="modal-content">
           <!--Header-->
           <div class="modal-header text-center">
-            <h4 class="modal-title white-text w-100 font-weight-bold py-2">Create Post</h4>
-            <button type="button" class="close" data-dismiss="modal " aria-label="Close">
+            <h4 class="modal-title white-text w-100 font-weight-bold py-2">Create a Post</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true" class="white-text">&times;</span>
             </button>
           </div>
@@ -36,6 +36,7 @@
           <!--Footer-->
           <div class="modal-footer justify-content-center">
             <button
+            
               type="button"
               class="btn btn-primary waves-effect ml-5"
               data-dismiss="modal"
