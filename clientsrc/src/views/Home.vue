@@ -5,9 +5,9 @@
       <div class="col-6"></div>
       <div class="col-3">
    <CreatePostComp v-if="$auth.isAuthenticated" />
+      </div>
+      </div>
    <PostComp v-for='post in posts' :key='post.id' :postData='post'/>
-      </div>
-      </div>
   </div>
 </template>
 
