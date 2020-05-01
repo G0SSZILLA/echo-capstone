@@ -106,17 +106,9 @@ export default {
     }
   },
 
-<<<<<<< HEAD
-  goToDetails() {
-    this.$router.push("posts/" + this.postData.id);
-  },
-
   components: {
-      ResultsComp,
+      ResultsComp
   }
-=======
-  components: {}
->>>>>>> 489ea2a30406605b1f92e43f5ee99e18cf9308e4
 };
 </script>
 
