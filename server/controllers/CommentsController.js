@@ -2,6 +2,7 @@ import express from 'express'
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { commentsService } from '../services/CommentsService'
+import CheckEmail from "../utils/CheckEmail";
 
 
 
@@ -13,6 +14,7 @@ export class CommentsController extends BaseController {
       .use(auth0provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .use(CheckEmail)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)

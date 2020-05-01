@@ -24,6 +24,9 @@
           </div>
           <small v-else>User email is not verified.</small>
         </div>
+        <div v-else>
+          <button class="btn btn-dark" @click="logInUser()">Log in to vote</button>
+        </div>
       </div>
     </div>
   </div>
@@ -55,30 +58,22 @@ export default {
     }
   },
   methods: {
-    async chooseSupport() {
-      if (!this.$auth.isAuthenticated) {
-        await this.$auth.loginWithPopup();
-        this.$store.dispatch("setBearer", this.$auth.bearer);
-        this.$store.dispatch("getProfile");
-        this.$store.dispatch("getPosts");
-      } else {
-        this.showButton = false;
-        this.postData.support.push(this.$auth.user.email);
-        this.$store.dispatch("addUserInput", this.postData);
-      }
+    chooseSupport() {
+      this.showButton = false;
+      this.postData.support.push(this.$auth.user.email);
+      this.$store.dispatch("addUserInput", this.postData);
     },
 
-    async chooseDisregard() {
-      if (!this.$auth.isAuthenticated) {
-        await this.$auth.loginWithPopup();
-        this.$store.dispatch("setBearer", this.$auth.bearer);
-        this.$store.dispatch("getProfile");
-        this.$store.dispatch("getPosts");
-      } else {
-        this.showButton = false;
-        this.postData.disregard.push(this.$auth.user.email);
-        this.$store.dispatch("addUserInput", this.postData);
-      }
+    chooseDisregard() {
+      this.showButton = false;
+      this.postData.disregard.push(this.$auth.user.email);
+      this.$store.dispatch("addUserInput", this.postData);
+    },
+    async logInUser() {
+      await this.$auth.loginWithPopup();
+      this.$store.dispatch("setBearer", this.$auth.bearer);
+      this.$store.dispatch("getProfile");
+      this.$store.dispatch("getPosts");
     },
     goToDetails() {
       console.log("goToDetails");
