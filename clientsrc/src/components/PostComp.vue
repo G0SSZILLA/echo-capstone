@@ -20,7 +20,11 @@
               @click.prevent="chooseDisregard()"
             >disregard</a>
             <!-- <Results v-show="!showButton" :postData="postData" /> -->
-            <p @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
+            <button
+              @click="goToDetails()"
+              class="btn border bg-success"
+              v-show="!showButton"
+            >Join the Conversation</button>
           </div>
           <small v-else>User email is not verified.</small>
         </div>
@@ -75,9 +79,15 @@ export default {
       this.$store.dispatch("getProfile");
       this.$store.dispatch("getPosts");
     },
+
     goToDetails() {
-      console.log("goToDetails");
+      this.$store.commit("setActivePost", {})
+      this.$router.push({
+        name: "postDetails",
+        params: {postId: this.postData.id}
+      })
     },
+
     newMethod() {
       if (this.$auth.isAuthenticated) {
         let i = this.postData.support.find(
@@ -96,10 +106,6 @@ export default {
         }
       }
     }
-  },
-
-  goToDetails() {
-    this.$router.push("posts/" + this.postData.id);
   },
 
   components: {}

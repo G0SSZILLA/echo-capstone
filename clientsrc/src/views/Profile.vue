@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-
+<p>profile page</p>
 
   </div>
 </template>
