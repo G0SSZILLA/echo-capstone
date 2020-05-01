@@ -77,9 +77,15 @@ export default {
       this.$store.dispatch("getProfile");
       this.$store.dispatch("getPosts");
     },
+
     goToDetails() {
-      console.log("goToDetails");
+      this.$store.commit("setActivePost", {})
+      this.$router.push({
+        name: "postDetails",
+        params: {postId: this.postData.id}
+      })
     },
+
     newMethod() {
       if (this.$auth.isAuthenticated) {
         let i = this.postData.support.find(
@@ -100,6 +106,7 @@ export default {
     }
   },
 
+<<<<<<< HEAD
   goToDetails() {
     this.$router.push("posts/" + this.postData.id);
   },
@@ -107,6 +114,9 @@ export default {
   components: {
       ResultsComp,
   }
+=======
+  components: {}
+>>>>>>> 489ea2a30406605b1f92e43f5ee99e18cf9308e4
 };
 </script>
 
