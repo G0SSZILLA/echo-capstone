@@ -20,9 +20,9 @@
         <li
           class="nav-item"
           v-if="$auth.isAuthenticated"
-          :class="{ active: $route.name == 'boards' }"
+          :class="{ active: $route.name == 'home' }"
         >
-          <router-link class="nav-link" :to="{ name: 'boards' }">My-Dashboard</router-link>
+          <router-link class="nav-link" :to="{ name: 'home' }">My-Dashboard</router-link>
         </li>
       </ul>
       <span class="navbar-text">
