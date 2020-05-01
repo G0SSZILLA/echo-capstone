@@ -3,12 +3,14 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { postsService } from "../services/PostsService";
 import { commentsService } from '../services/CommentsService'
+import CheckEmail from "../utils/checkEmail";
 
 export class PostsController extends BaseController {
     constructor() {
         super("api/Posts");
         this.router
             .get("", this.getAll)
+            .use(CheckEmail)
             .get('/:id/comments', this.getCommentsByPostId)
             .get("/:id", this.getById)
             .use(auth0provider.getAuthorizedUserInfo)
