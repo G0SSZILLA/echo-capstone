@@ -26,8 +26,8 @@ class PostsService {
         return data
     }
 
-    async edit(id, userEmail, update) {
-        let data = await dbContext.Posts.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
+    async edit(id, update) {
+        let data = await dbContext.Posts.findOneAndUpdate({ _id: id }, update, { new: true })
         if (!data) {
             throw new BadRequest("Invalid ID or you do not own this Post");
         }

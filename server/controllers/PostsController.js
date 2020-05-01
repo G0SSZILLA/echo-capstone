@@ -58,7 +58,6 @@ export class PostsController extends BaseController {
         try {
             let data = await postsService.edit(
                 req.params.id,
-                req.userInfo.email,
                 req.body
             );
             return res.send(data);
