@@ -40,7 +40,7 @@ export default new Vuex.Store({
     },
     actions: {
         //#region -- AUTH STUFF --
-        setBearer({}, bearer) {
+        setBearer({ }, bearer) {
             api.defaults.headers.authorization = bearer;
         },
         resetBearer() {
@@ -55,7 +55,7 @@ export default new Vuex.Store({
             }
         },
 
-        async addUserInput ({commit, dispatch} ,postData) {
+        async addUserInput({ commit, dispatch }, postData) {
             try {
                 let res = await api.put('posts/' + postData.id, postData)
             } catch (err) {
