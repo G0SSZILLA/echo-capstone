@@ -38,17 +38,21 @@ export default {
     };
   },
   created() {
-    let i = this.postData.support.find(
-      element => element == this.$auth.user.id
-    );
-    if (i) {
-      this.showButton = false;
+    if (this.$auth.isAuthenticated) {
+      let i = this.postData.support.find(
+        element => element == this.$auth.user.email
+      );
+      if (i) {
+        this.showButton = false;
+      }
     }
-    let j = this.postData.disregard.find(
-      element => element == this.$auth.user.id
-    );
-    if (j) {
-      this.showButton = false;
+    if (this.$auth.isAuthenticated) {
+      let j = this.postData.disregard.find(
+        element => element == this.$auth.user.email
+      );
+      if (j) {
+        this.showButton = false;
+      }
     }
   },
   computed: {},
@@ -60,7 +64,7 @@ export default {
         this.$store.dispatch("getProfile");
       } else {
         this.showButton = false;
-        this.postData.support.push(this.$auth.user.id);
+        this.postData.support.push(this.$auth.user.email);
         this.$store.dispatch("addUserInput", this.postData);
       }
     },
@@ -72,7 +76,7 @@ export default {
         this.$store.dispatch("getProfile");
       } else {
         this.showButton = false;
-        this.postData.disregard.push(this.$auth.user.id);
+        this.postData.disregard.push(this.$auth.user.email);
         this.$store.dispatch("addUserInput", this.postData);
       }
     },
