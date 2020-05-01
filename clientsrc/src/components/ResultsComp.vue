@@ -43,8 +43,8 @@ export default {
         this.sumValue = this.supportValue + this.disregardValue;
         this.resultsBar =
           "width:" + (this.supportValue / this.sumValue) * 100 + "%";
-        this.supportPercent = (this.supportValue / this.sumValue) * 100;
-        this.disregardPercent = (this.disregardValue / this.sumValue) * 100;
+        this.supportPercent = Math.round((this.supportValue / this.sumValue) * 100)
+        this.disregardPercent = Math.round((this.disregardValue / this.sumValue) * 100)
     }
   },
   components: {}
