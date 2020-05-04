@@ -1,5 +1,6 @@
 import SocketIO from "socket.io";
 import auth0provider from "@bcwdev/auth0provider";
+import { profilesService } from "./ProfilesService"
 class SocketService {
   io = SocketIO();
   /**
@@ -21,21 +22,28 @@ class SocketService {
   async Authenticate(socket, bearerToken) {
     try {
       let user = await auth0provider.getUserInfoFromBearerToken(bearerToken);
+      let profile = await profilesService.findProfile(user.email);
       socket["user"] = user;
-      socket.join(user.id);
-      socket.emit("AUTHENTICATED");
-      this.io.emit("UserConnected", user.id);
+      if (!profile.id) {
+        // @ts-ignore
+        profile = { name: user.name, email: user.email, picture: user.picture };
+      }
+      socket["userProfile"] = profile;
+      this.JoinRoom(socket, user.email);
+      socket.emit("AUTHENTICATED", socket["userProfile"]);
+      this.io.emit("UserConnected", profile);
     } catch (e) {
       socket.emit("error", e);
     }
   }
 
   /**
-   * @param {SocketIO.Socket} socket
-   * @param {string} room
-   */
+  * @param {SocketIO.Socket} socket
+  * @param {string} room
+  */
   JoinRoom(socket, room) {
     socket.join(room);
+    socket.emit("JOINED_ROOM", room)
   }
   /**
    * @param {SocketIO.Socket} socket
@@ -43,6 +51,7 @@ class SocketService {
    */
   LeaveRoom(socket, room) {
     socket.leave(room);
+    socket.emit("LEFT_ROOM", room)
   }
 
   /**
@@ -61,14 +70,29 @@ class SocketService {
     this.io.to(room).emit(eventName, payload);
   }
 
+
+  //#region SOCKET CONFIG
+
   _onConnect() {
     return socket => {
       this._newConnection(socket);
 
-      //STUB Register listeners
+      // STUB Register listeners
 
-      socket.on("dispatch", this._onDispatch(socket));
-      socket.on("disconnect", this._onDisconnect(socket));
+      socket.on("dispatch", (payload) => {
+        try {
+          this._onDispatch(socket, payload)
+        } catch (e) {
+          socket.emit("DISPATCH_ERROR", e.message)
+        }
+      });
+      socket.on("disconnect", socket => {
+        try {
+          this._onDisconnect(socket)
+        } catch (e) {
+          console.error(e)
+        }
+      });
     };
   }
 
@@ -83,25 +107,34 @@ class SocketService {
     };
   }
 
-  _onDispatch(socket) {
-    return (payload = {}) => {
-      try {
-        var action = this[payload.action];
-        if (!action || typeof action != "function") {
-          return socket.emit("error", "Unknown Action");
-        }
-        action.call(this, socket, payload.data);
-      } catch (e) { }
-    };
+  _onDispatch(socket, payload = {}) {
+    try {
+      if (!socket.user) {
+        return socket.emit("NO_AUTH", payload)
+      }
+      let action = this[payload.action];
+      if (!action || typeof action != "function") {
+        return socket.emit("DISPATCH_ERROR", "Unknown Action");
+      }
+      action.call(this, socket, payload.data);
+    } catch (e) {
+      socket.emit("DISPATCH_ERROR", e.message)
+    }
   }
+
 
   _newConnection(socket) {
     //Handshake / Confirmation of Connection
+    socket.on('AUTHENTICATE', bearer => {
+      this.Authenticate(socket, bearer)
+    })
     socket.emit("CONNECTED", {
       socket: socket.id,
       message: "Successfully Connected"
     });
   }
+  //#endregion
+
 }
 
 const socketService = new SocketService();
