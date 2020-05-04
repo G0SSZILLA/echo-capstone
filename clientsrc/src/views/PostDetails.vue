@@ -27,8 +27,8 @@
       </div>
     </div>
     <div>
-    <!-- create comment comp sticky footerbar -->
-    <CreateCommentComp />
+      <!-- create comment comp sticky footerbar -->
+      <CreateCommentComp />
     </div>
   </div>
 </template>
@@ -42,27 +42,28 @@ export default {
   name: "postDetails",
   props: ["postData"],
   data() {
-    return {
-    
-    };
+    return {};
   },
   mounted() {
     this.$store.dispatch("getPost", this.$route.params.postId);
-    this.$store.dispatch('getComments', this.$route.params.postId)
+    this.$store.dispatch("getComments", this.$route.params.postId);
+    // dispatch join the room ????
+    this.$store.dispatch("JoinRoom", this.$route.params.postId + ":support");
+    this.$store.dispatch("JoinRoom", this.$route.params.postId + ":disregard");
   },
   computed: {
     comments() {
-      if(this.post.support.find(i => i == this.$auth.user.email)){
-        return this.$store.state.comments.filter(i=> i.support == true)
-      }else if (this.post.disregard.find(i => i == this.$auth.user.email)){
-        return this.$store.state.comments.filter(i=>i.support == false)
-      }else{
-        throw new Error('please vote');
-        
+      if (
+        this.post &&
+        this.post.support &&
+        this.post.support.find(i => i == this.$auth.user.email)
+      ) {
+        return this.$store.state.comments.filter(i => i.support == true);
+      } else {
+        return this.$store.state.comments.filter(i => i.support == false);
       }
     },
     post() {
-      
       return this.$store.state.activePost;
     }
   },

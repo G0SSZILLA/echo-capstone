@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext"
 import { BadRequest } from "../utils/Errors"
+import socketService from "./SocketService"
 
 
 class CommentsService {
@@ -17,6 +18,7 @@ class CommentsService {
 
   async create(rawData) {
     let data = await dbContext.Comments.create(rawData)
+    socketService.messageRoom(rawData.postId + (rawData.support ? ":support" : ":disregard"), "New_Comment", rawData)
     return data
   }
 
@@ -29,14 +31,14 @@ class CommentsService {
   }
 
   async delete(id) {
-    let data = await dbContext.Comments.findOneAndRemove({ _id: id});
+    let data = await dbContext.Comments.findOneAndRemove({ _id: id });
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this comment");
     }
   }
 
   async getCommentsByPostId(postId) {
-    let data = await dbContext.Comments.find({ postId: postId}).populate("creator", "name picture")
+    let data = await dbContext.Comments.find({ postId: postId }).populate("creator", "name picture")
     return data
   }
   async getCommentsByUserEmail(userEmail) {

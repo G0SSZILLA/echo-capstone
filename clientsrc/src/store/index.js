@@ -2,11 +2,12 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
 import router from "../router/index";
+import { SocketStore } from "./SocketStore"
 
 Vue.use(Vuex);
 
 //Allows axios to work locally or live
-let base = window.location.host.includes("localhost") ?
+export const base = window.location.host.includes("localhost") ?
   "//localhost:3000/" :
   "/";
 
@@ -20,7 +21,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     post: {},
-    activePost: {},
+    activePost: { support: [], disregard: [] },
     posts: [],
     comments: [],
   },
@@ -34,7 +35,7 @@ export default new Vuex.Store({
     setPosts(state, posts) {
       state.posts = posts;
     },
-    setActivePost(state, post) {
+    setActivePost(state, post = { support: [], disregard: [] }) {
       state.activePost = post;
     },
     setComments(state, comments) {
@@ -43,8 +44,9 @@ export default new Vuex.Store({
   },
   actions: {
     //#region -- AUTH STUFF --
-    setBearer({ }, bearer) {
+    setBearer({ dispatch }, bearer) {
       api.defaults.headers.authorization = bearer;
+      dispatch('initializeSocket', bearer);
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
@@ -82,7 +84,9 @@ export default new Vuex.Store({
     async getPost({ commit, dispatch }, postId) {
       try {
         let res = await api.get(`posts/${postId}`);
-        commit("setActivePost", res.data);
+        if (res.data.id) {
+          commit("setActivePost", res.data);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -114,7 +118,7 @@ export default new Vuex.Store({
       try {
         let res = await api.post("comments/", comment);
         console.log("addComment: ", res.data);
-        dispatch("getComments", comment.postId);
+        // dispatch("getComments", comment.postId);
       } catch (error) {
         console.error("addComment failing: ", error);
       }
@@ -125,4 +129,7 @@ export default new Vuex.Store({
     //#region -- WHATEVS 4 NOW--
     //#endregion
   },
+  modules: {
+    SocketStore
+  }
 });
