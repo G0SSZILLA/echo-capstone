@@ -20,7 +20,7 @@
               @click.prevent="chooseDisregard()"
             >disregard</a>
             <ResultsComp v-if="!showButton" :postData="postData" />
-            <p class='mb-0 pb-0' @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
+            <p class="mb-0 pb-0" @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
           </div>
           <small v-else>User email is not verified.</small>
         </div>
@@ -35,14 +35,15 @@
 
 <script>
 import { getInstance } from "@bcwdev/auth0-vue";
-import ResultsComp from '../components/ResultsComp.vue'
+import ResultsComp from "../components/ResultsComp.vue";
 export default {
   name: "postComp",
   props: ["postData"],
   data() {
     return {
       displayContent: false,
-      showButton: true
+      showButton: true,
+      chooseVote: {}
     };
   },
   created() {
@@ -61,15 +62,22 @@ export default {
   methods: {
     chooseSupport() {
       this.showButton = false;
-      this.postData.support.push(this.$auth.user.email);
-      this.$store.dispatch("addUserInput", this.postData);
-
+      // this.postData.support.push(this.$auth.user.email);
+      // this.$store.dispatch("addUserInput", this.postData);
+      this.chooseVote.choice = true;
+      this.chooseVote.title = this.postData.title;
+      this.chooseVote.id = this.postData.id;
+      this.$store.dispatch("addUserInput", this.chooseVote);
     },
 
     chooseDisregard() {
       this.showButton = false;
-      this.postData.disregard.push(this.$auth.user.email);
-      this.$store.dispatch("addUserInput", this.postData);
+      // this.postData.disregard.push(this.$auth.user.email);
+      // this.$store.dispatch("addUserInput", this.postData);
+      this.chooseVote.choice = false;
+      this.chooseVote.title = this.postData.title;
+      this.chooseVote.id = this.postData.id;
+      this.$store.dispatch("addUserInput", this.chooseVote);
     },
     async logInUser() {
       await this.$auth.loginWithPopup();
@@ -79,11 +87,11 @@ export default {
     },
 
     goToDetails() {
-      this.$store.commit("setActivePost", {})
+      this.$store.commit("setActivePost", {});
       this.$router.push({
         name: "postDetails",
-        params: {postId: this.postData.id}
-      })
+        params: { postId: this.postData.id }
+      });
     },
 
     newMethod() {
@@ -107,7 +115,7 @@ export default {
   },
 
   components: {
-      ResultsComp
+    ResultsComp
   }
 };
 </script>
