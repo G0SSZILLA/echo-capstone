@@ -1,7 +1,8 @@
 <template>
   <div class="commentComp">
-    <div class="row justify-content-center border-bottom py-2">
-      <div>
+    <div class="row justify-content-center border-top border-bottom py-2">
+        <div class="col-10"></div>
+        <div class="col-2 p-0">
         <button
           v-if="this.$auth.user.email == this.commentData.creatorEmail"
           class="btn text-danger btn-sm p-0"
@@ -11,7 +12,7 @@
           data-placement="top"
           title="Delete This Comment"
         >&times;</button>
-      </div>
+        </div>
       <div class="col-12">
         <h5>{{commentData.content}}</h5>
         <p style="font-size: 13px">- {{commentData.creator.name}}</p>
