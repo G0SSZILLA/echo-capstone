@@ -8,7 +8,6 @@ const Comment = new Schema({
   creatorEmail: { type: String, required: true },
   likes: [{ type: ObjectId, ref: "User" }],
   support: { type: Boolean, required: true },
-
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 Comment.virtual("creator",
