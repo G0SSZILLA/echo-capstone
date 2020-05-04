@@ -7,7 +7,7 @@ import CheckEmail from "../utils/CheckEmail";
 
 export class PostsController extends BaseController {
     constructor() {
-        super("api/Posts");
+        super("api/posts");
         this.router
             .get("", this.getAll)
             .use(auth0provider.getAuthorizedUserInfo)
