@@ -14,7 +14,7 @@
             title="Delete This Post"
           >&times;</button>
         </div>
-        <img class="card-img-top" v-if="post.picture" :src="post.picture" />
+        <img class="card-img-top shadow" v-if="post.picture" :src="post.picture" />
         <div class="card-body">
           <h5 class="card-title">
             <strong>{{post.title}}</strong>
