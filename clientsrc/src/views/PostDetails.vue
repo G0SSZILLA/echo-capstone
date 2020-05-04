@@ -2,8 +2,8 @@
 <template>
   <div class="postDetails mt-4 vh-100">
     <div class="postComp">
-      <div class="card m-2">
-        <img class="card-img-top" v-if="post.picture" :src="post.picture" />
+      <div class="card m-2 shadow">
+        <img class="card-img-top shadow" v-if="post.picture" :src="post.picture" />
         <div class="card-body">
           <h5 class="card-title">
             <strong>{{post.title}}</strong>
@@ -54,8 +54,11 @@ export default {
     comments() {
       if(this.post.support.find(i => i == this.$auth.user.email)){
         return this.$store.state.comments.filter(i=> i.support == true)
-      }else{
+      }else if (this.post.disregard.find(i => i == this.$auth.user.email)){
         return this.$store.state.comments.filter(i=>i.support == false)
+      }else{
+        throw new Error('please vote');
+        
       }
     },
     post() {
