@@ -22,12 +22,14 @@
       <div class="card-title border-bottom mt-3 mx-3 justify-content-center">
         <h2>Comment Chamber</h2>
       </div>
-      <div class="card-body">
+      <div class="card-body mb-5">
         <commentComp v-for="comment in comments" :commentData="comment" :key="comment.id" />
       </div>
     </div>
+    <div>
     <!-- create comment comp sticky footerbar -->
     <CreateCommentComp />
+    </div>
   </div>
 </template>
 
@@ -40,7 +42,9 @@ export default {
   name: "postDetails",
   props: ["postData"],
   data() {
-    return {};
+    return {
+    
+    };
   },
   mounted() {
     this.$store.dispatch("getPost", this.$route.params.postId);
@@ -48,9 +52,14 @@ export default {
   },
   computed: {
     comments() {
-      return this.$store.state.comments;
+      if(this.post.support.find(i => i == this.$auth.user.email)){
+        return this.$store.state.comments.filter(i=> i.support == true)
+      }else{
+        return this.$store.state.comments.filter(i=>i.support == false)
+      }
     },
     post() {
+      
       return this.$store.state.activePost;
     }
   },

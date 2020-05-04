@@ -13,7 +13,7 @@
 </div>
 
 </div>
-<div class="col-3">
+<div class="col-3" >
     <button type="submit" @click="addComment" class="btn border bg-warning mt-2 mr-1">
         Send
     </button>
@@ -40,7 +40,12 @@ export default {
     },
     methods:{
       addComment() {
-        debugger
+        if(this.activePost.support.find(i => i == this.$auth.userInfo.email)){
+          this.newComment.support = true
+        }else{
+          this.newComment.support = false
+        }
+        
         this.newComment.postId = this.activePost.id
         this.$store.dispatch('addComment', this.newComment)
         this.newComment = {}
