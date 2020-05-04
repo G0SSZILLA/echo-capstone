@@ -66,17 +66,17 @@ export default {
         this.post.support &&
         this.post.support.find(i => i == this.$auth.user.email)
       ) {
-        return this.$store.state.comments.filter(i => i.support == true);
         this.$store.dispatch(
           "JoinRoom",
           this.$route.params.postId + ":support"
         );
+        return this.$store.state.comments.filter(i => i.support == true);
       } else {
-        return this.$store.state.comments.filter(i => i.support == false);
         this.$store.dispatch(
           "JoinRoom",
           this.$route.params.postId + ":disregard"
         );
+        return this.$store.state.comments.filter(i => i.support == false);
       }
     },
     post() {
@@ -100,7 +100,8 @@ export default {
           this.$router.push({ name: "home" });
         }
       });
-    },},
+    }
+  },
   components: { CommentComp, CreateCommentComp, ResultsComp }
 };
 </script>
