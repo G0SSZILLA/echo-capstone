@@ -102,7 +102,14 @@ export default new Vuex.Store({
         console.error(error, "addPost in store failing");
       }
     },
-
+    async deletePost({dispatch}, postId){
+        try {
+            await api.delete("posts/" + postId)
+            dispatch("getPosts")
+        } catch (error) {
+            console.error("deletePost failed: ", error);
+        }
+    },
     //#endregion
 
     //#region -- COMMENTS  --
@@ -123,7 +130,15 @@ export default new Vuex.Store({
         console.error("addComment failing: ", error);
       }
     },
-
+    async deleteComment({dispatch}, comment){
+        try {
+            debugger
+            await api.delete("comments/" + comment.id)
+            dispatch("getComments", comment.postId)
+        } catch (error) {
+            console.error("deleteComment failed: ", error);
+        }
+    },
     //#endregion
 
     //#region -- WHATEVS 4 NOW--
