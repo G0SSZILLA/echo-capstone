@@ -3,7 +3,18 @@
   <div class="postDetails mt-4 vh-100">
     <div class="postComp">
       <div class="card m-2">
-        <img class="card-img-top" v-if="post.picture" :src="post.picture" />
+        <div class="card-header text-right rounded">
+          <button
+            v-if="this.$auth.user.email == this.post.creatorEmail"
+            class="btn text-danger btn-sm p-0"
+            style="font-size: 1.5rem"
+            @click="deletePost()"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Delete This Post"
+          >&times;</button>
+        </div>
+        <img class="card-img-top shadow" v-if="post.picture" :src="post.picture" />
         <div class="card-body">
           <h5 class="card-title">
             <strong>{{post.title}}</strong>
@@ -40,7 +51,6 @@ import CommentComp from "../components/CommentComp";
 import CreateCommentComp from "../components/CreateCommentComp";
 export default {
   name: "postDetails",
-  props: ["postData"],
   data() {
     return {};
   },
@@ -73,7 +83,24 @@ export default {
       return this.$store.state.activePost;
     }
   },
-  methods: {},
+  methods: {
+    deletePost() {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          Swal.fire("Deleted!", "Your Post has been deleted.", "success");
+          this.$store.dispatch("deletePost", this.$route.params.postId);
+          this.$router.push({ name: "home" });
+        }
+      });
+    },},
   components: { CommentComp, CreateCommentComp, ResultsComp }
 };
 </script>
