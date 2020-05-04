@@ -98,6 +98,7 @@ export default new Vuex.Store({
         console.log("addPost from store", postData);
         // NOTE do we want this to push us to the post details page
         dispatch("getPosts");
+
       } catch (error) {
         console.error(error, "addPost in store failing");
       }

@@ -28,7 +28,13 @@
 
             <div class="md-form">
               <label data-error="wrong" data-success="right" for="form2">Content</label>
-              <input type="text" id="form2" class="form-control" style="height: 6rem" v-model="newPost.content" />
+              <input
+                type="text"
+                id="form2"
+                class="form-control"
+                style="height: 6rem"
+                v-model="newPost.content"
+              />
             </div>
 
             <div class="md-form justify-content-center mt-4">
@@ -77,13 +83,17 @@ export default {
   props: ["createData"],
   data() {
     return {
-      newPost: {}
+      newPost: {
+        support: [],
+        disregard: []
+      }
     };
   },
   computed: {},
 
   methods: {
     addPost() {
+      this.newPost.support[0] = this.$auth.user.email;
       this.$store.dispatch("addPost", this.newPost);
       this.newPost = {};
     },
@@ -111,5 +121,4 @@ export default {
 
 
 <style scoped>
-
 </style>

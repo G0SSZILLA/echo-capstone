@@ -48,8 +48,6 @@ export default {
     this.$store.dispatch("getPost", this.$route.params.postId);
     this.$store.dispatch("getComments", this.$route.params.postId);
     // dispatch join the room ????
-    this.$store.dispatch("JoinRoom", this.$route.params.postId + ":support");
-    this.$store.dispatch("JoinRoom", this.$route.params.postId + ":disregard");
   },
   computed: {
     comments() {
@@ -59,8 +57,16 @@ export default {
         this.post.support.find(i => i == this.$auth.user.email)
       ) {
         return this.$store.state.comments.filter(i => i.support == true);
+        this.$store.dispatch(
+          "JoinRoom",
+          this.$route.params.postId + ":support"
+        );
       } else {
         return this.$store.state.comments.filter(i => i.support == false);
+        this.$store.dispatch(
+          "JoinRoom",
+          this.$route.params.postId + ":disregard"
+        );
       }
     },
     post() {
