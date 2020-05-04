@@ -1,5 +1,5 @@
 <template>
-    <div class="createCommentComp">
+    <div class="createCommentComp form">
 <footer class="page-footer bg-info fixed-bottom">
     <div class="row p-1">
 <div class="col-3">
@@ -9,12 +9,12 @@
 </div>
 <div class="col-6 p-0">
   <div class="md-form pink-textarea active-pink-textarea-2">
-  <textarea id="form17" class="md-textarea form-control" placeholder="Comment here..." rows="2"></textarea>
+  <textarea id="form17" class="md-textarea form-control" v-model="newComment.content" placeholder="Comment here..." rows="2"></textarea>
 </div>
 
 </div>
 <div class="col-3">
-    <button class="btn border bg-warning mt-2 mr-1">
+    <button type="submit" @click="addComment" class="btn border bg-warning mt-2 mr-1">
         Send
     </button>
 </div>
@@ -29,10 +29,23 @@
 export default {
     name: 'createCommentComp',
     data(){
-        return {}
+        return {
+          newComment: {}
+        }
     },
-    computed:{},
-    methods:{},
+    computed:{
+      activePost(){
+        return this.$store.state.activePost
+      }
+    },
+    methods:{
+      addComment() {
+        debugger
+        this.newComment.postId = this.activePost.id
+        this.$store.dispatch('addComment', this.newComment)
+        this.newComment = {}
+      },
+    },
     components:{}
 }
 </script>
