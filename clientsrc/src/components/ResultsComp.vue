@@ -1,9 +1,9 @@
 <template>
   <div class="ResultsComp">
     <div class="mx-5">
-    <div class="progress bg-info" style="height:10px; border-radius: 2px">
+    <div class="progress bg-info" style="height:10px; border-radius: 1px">
       <div
-        class="progress-bar" style="height:10px; border-radius: 2px"
+        class="progress-bar" style="height:10px; border-radius: 1px"
         role="progressbar"
         :style="resultsBar"
         aria-valuenow="25"
