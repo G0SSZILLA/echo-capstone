@@ -24,6 +24,7 @@ export default new Vuex.Store({
         activePost: { support: [], disregard: [] },
         posts: [],
         comments: [],
+        choice: {}
     },
     mutations: {
         setUser(state, user) {
@@ -41,6 +42,7 @@ export default new Vuex.Store({
         setComments(state, comments) {
             state.comments = comments;
         },
+        
     },
     actions: {
         //#region -- AUTH STUFF --

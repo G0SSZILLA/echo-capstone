@@ -65,27 +65,30 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    choice() {
+      
     }
   },
   methods: {
     chooseSupport() {
-      this.showButton = false;
-      // this.postData.support.push(this.$auth.user.email);
+      this.postData.support.push(this.$auth.user.email);
       // this.$store.dispatch("addUserInput", this.postData);
       this.chooseVote.choice = true;
       this.chooseVote.title = this.postData.title;
       this.chooseVote.id = this.postData.id;
       this.$store.dispatch("addUserInput", this.chooseVote);
+      this.showButton = false;
     },
 
     chooseDisregard() {
-      this.showButton = false;
-      // this.postData.disregard.push(this.$auth.user.email);
+      this.postData.disregard.push(this.$auth.user.email);
       // this.$store.dispatch("addUserInput", this.postData);
       this.chooseVote.choice = false;
       this.chooseVote.title = this.postData.title;
       this.chooseVote.id = this.postData.id;
       this.$store.dispatch("addUserInput", this.chooseVote);
+      this.showButton = false;
     },
     async logInUser() {
       await this.$auth.loginWithPopup();
@@ -100,6 +103,10 @@ export default {
         name: "postDetails",
         params: { postId: this.postData.id }
       });
+    },
+
+    showResults() {
+      this.showButton = false
     },
 
     newMethod() {
@@ -120,6 +127,7 @@ export default {
         }
       }
     },
+
  date() {
       let date = this.postData.updatedAt.split("T");
       return date[0];
