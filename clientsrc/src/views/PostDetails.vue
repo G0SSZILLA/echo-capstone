@@ -1,6 +1,6 @@
 
 <template>
-  <div class="postDetails mt-4 vh-100">
+  <div class="postDetails mt-5 vh-100">
     <div class="postComp">
       <div class="card m-2">
         <div class="card-header text-right rounded">
