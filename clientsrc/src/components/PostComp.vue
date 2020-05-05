@@ -1,6 +1,6 @@
 <template>
   <div class="postComp">
-    <div class="card shadow my-2 mx-0">
+    <div class="card shadow my-2 mx-0" style="border-radius:1px">
       <img class="card-img-top" v-if="postData.picture" :src="postData.picture" />
       <div class="card-body pb-2">
         <h5 class="card-title">{{postData.title}}</h5>

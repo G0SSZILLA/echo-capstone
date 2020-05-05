@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link class="navbar-brand font-pacifico" :to="{ name: 'home' }">Echo</router-link>
     <button
       class="navbar-toggler"
