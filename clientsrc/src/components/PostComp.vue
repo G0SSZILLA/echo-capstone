@@ -6,13 +6,14 @@
       <!-- <p class="ml-2 text-left">{{postData.creatorEmail}}</p> -->
         </div>
         <div class="col-6">
-          <p class="mr-2 text-right">{{date()}}</p>
+          <!-- <p class="mr-2 text-right">{{date()}}</p> -->
         </div>
       </div>
       <img class="card-img-top" v-if="postData.picture" :src="postData.picture" />
       <div class="card-body pb-2">
-        <h5 class="card-title">{{postData.title}}</h5>
-        <p v-show="displayContent" class="card-text">{{postData.content}}</p>
+        <h4 class="card-title">{{postData.title}}</h4>
+        <p @click="seeMoreContent()" v-show="displayContent" :class="{'overflow-hidden': !showMore, 'heightSomething': !showMore, 'card-text': displayContent}">
+          {{postData.content}}</p>
         <div class="card-footer px-2 pb-0 pt-3 bg-white" v-if="$auth.isAuthenticated">
           <div v-if="$auth.user.email_verified">
             <a
@@ -49,7 +50,8 @@ export default {
   props: ["postData"],
   data() {
     return {
-      displayContent: false,
+      displayContent: true,
+      showMore: false,
       showButton: true,
       chooseVote: {}
     };
@@ -77,6 +79,10 @@ export default {
       this.chooseVote.id = this.postData.id;
       this.$store.dispatch("addUserInput", this.chooseVote);
     },
+
+seeMoreContent(){
+this.showMore = !this.showMore
+},
 
     chooseDisregard() {
       this.showButton = false;
@@ -135,4 +141,7 @@ export default {
 
 
 <style scoped>
+.heightSomething{
+ max-height: 4.5rem;
+}
 </style>

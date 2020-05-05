@@ -4,15 +4,25 @@
     <div class="postComp">
       <div class="card m-2">
         <div class="card-header text-right rounded">
+
+<div class="dropdown show">
+  <button class="bg-transparent border-0"  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-ellipsis-h"></i>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item ml-2" href="#">Report Post</a>
           <button
             v-if="this.$auth.user.email == this.post.creatorEmail"
-            class="btn text-danger btn-sm p-0"
-            style="font-size: 1.5rem"
+            class="btn text-danger btn-sm ml-4"
+            style="font-size: 1.1rem"
             @click="deletePost()"
             data-toggle="tooltip"
             data-placement="top"
             title="Delete This Post"
-          >&times;</button>
+          >Delete Post</button>
+  </div>
+</div>
+
         </div>
         <img class="card-img-top shadow" v-if="post.picture" :src="post.picture" />
         <div class="card-body">
