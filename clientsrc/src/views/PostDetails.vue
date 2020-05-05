@@ -32,7 +32,7 @@
           <hr />
           <p class="card-text">{{post.content}}</p>
         </div>
-        <div class="card-footer">
+        <div class="card-footer px-0">
           <!-- TODO insert progress bar -->
           <ResultsComp v-if="post.id" :postData="post" :key="post.id" />
         </div>
@@ -40,8 +40,8 @@
     </div>
     <!-- insert comments (sockets?)-->
     <div class="card m-1">
-      <div class="card-title border-bottom mt-3 mx-3 justify-content-center">
-        <h2>Comment Chamber</h2>
+      <div class="card-title border-bottom mt-2 mx-3 justify-content-center font-didact">
+        <h4>comments</h4>
       </div>
       <div class="card-body mb-5">
         <commentComp v-for="comment in comments" :commentData="comment" :key="comment.id" />
