@@ -1,6 +1,14 @@
 <template>
   <div class="postComp">
-    <div class="card shadow my-2 mx-0" style="border-radius:1px">
+    <div class="card shadow my-2 mx-0">
+      <div class="row">
+        <div class="col-6">
+      <!-- <p class="ml-2 text-left">{{postData.creatorEmail}}</p> -->
+        </div>
+        <div class="col-6">
+          <p class="mr-2 text-right">{{date()}}</p>
+        </div>
+      </div>
       <img class="card-img-top" v-if="postData.picture" :src="postData.picture" />
       <div class="card-body pb-2">
         <h5 class="card-title">{{postData.title}}</h5>
@@ -111,7 +119,12 @@ export default {
           this.showButton = false;
         }
       }
+    },
+ date() {
+      let date = this.postData.updatedAt.split("T");
+      return date[0];
     }
+
   },
 
   components: {

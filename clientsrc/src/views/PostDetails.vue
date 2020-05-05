@@ -57,8 +57,7 @@ export default {
   mounted() {
     this.$store.dispatch("getPost", this.$route.params.postId);
     this.$store.dispatch("getComments", this.$route.params.postId);
-    // dispatch join the room ????
-    this.joinRoomMethod();
+    
   },
   computed: {
     comments() {
@@ -94,23 +93,7 @@ export default {
         }
       });
     },
-    joinRoomMethod() {
-      if (
-        this.post &&
-        this.post.support &&
-        this.post.support.find(i => i == this.$auth.user.email)
-      ) {
-        this.$store.dispatch(
-          "JoinRoom",
-          this.$route.params.postId + ":support"
-        );
-      } else {
-        this.$store.dispatch(
-          "JoinRoom",
-          this.$route.params.postId + ":disregard"
-        );
-      }
-    }
+    
   },
   components: { CommentComp, CreateCommentComp, ResultsComp }
 };
