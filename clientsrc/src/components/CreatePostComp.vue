@@ -28,13 +28,13 @@
 
             <div class="md-form">
               <label data-error="wrong" data-success="right" for="form2">Content</label>
-              <input
+              <textarea
                 type="text"
                 id="form2"
                 class="form-control"
-                style="height: 6rem"
-                v-model="newPost.content"
-              />
+                rows="5"
+                cols="20"
+                v-model="newPost.content"/>
             </div>
 
             <div class="md-form justify-content-center mt-4">
