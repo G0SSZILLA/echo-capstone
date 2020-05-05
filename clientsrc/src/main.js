@@ -19,10 +19,12 @@ Vue.use(Auth0Plugin, {
     }
 });
 
-new Vue({
+const app = new Vue({
     router,
     store,
     render: function(h) {
         return h(App);
     }
-}).$mount("#app");
+})
+store.$app = app
+app.$mount("#app");
