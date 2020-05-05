@@ -1,8 +1,9 @@
 <template>
   <div class="ResultsComp">
-    <div class="progress bg-info">
+    <div class="mx-5">
+    <div class="progress bg-info" style="height:10px; border-radius: 1px">
       <div
-        class="progress-bar"
+        class="progress-bar" style="height:10px; border-radius: 1px"
         role="progressbar"
         :style="resultsBar"
         aria-valuenow="25"
@@ -10,10 +11,13 @@
         aria-valuemax="100"
       ></div>
     </div>
+        </div>
+<div class="mx-0">
     <div class="d-flex justify-content-between">
-      <span class="float-left">{{supportPercent}}%</span>
-      <span class="float-right">{{disregardPercent}}%</span>
-    </div>
+      <span style="position:relative; top:-17px">{{supportPercent}}%</span>
+      <span style="position:relative; top:-17px">{{disregardPercent}}%</span>
+      </div>
+      </div>
   </div>
 </template>
 

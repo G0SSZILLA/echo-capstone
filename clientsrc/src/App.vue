@@ -40,6 +40,7 @@ export default {
 }
 
 #nav {
+  position:fixed;
   padding: 30px;
 }
 
