@@ -22,7 +22,7 @@
           <hr />
           <p class="card-text">{{post.content}}</p>
         </div>
-        <div class="card-footer">
+        <div class="card-footer px-0">
           <!-- TODO insert progress bar -->
           <ResultsComp v-if="post.id" :postData="post" :key="post.id" />
         </div>
