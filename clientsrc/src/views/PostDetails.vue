@@ -1,6 +1,6 @@
 
 <template>
-  <div class="postDetails mt-5 vh-100">
+  <div class="postDetails mt-5 vh-100 font-didact">
     <div class="postComp">
       <div class="card m-2">
         <div class="card-header text-right rounded">
@@ -30,8 +30,8 @@
     </div>
     <!-- insert comments (sockets?)-->
     <div class="card m-1">
-      <div class="card-title border-bottom mt-3 mx-3 justify-content-center">
-        <h2>Comment Chamber</h2>
+      <div class="card-title border-bottom mt-2 mx-3 justify-content-center font-didact">
+        <h4>comments</h4>
       </div>
       <div class="card-body mb-5">
         <commentComp v-for="comment in comments" :commentData="comment" :key="comment.id" />
