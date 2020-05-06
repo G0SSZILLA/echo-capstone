@@ -47,8 +47,8 @@
         <commentComp v-for="comment in comments" :commentData="comment" :key="comment.id" />
       </div>
     </div>
-    <div>
       <!-- create comment comp sticky footerbar -->
+    <div>
       <CreateCommentComp />
     </div>
   </div>

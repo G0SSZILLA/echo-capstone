@@ -21,6 +21,7 @@ Vue.use(Auth0Plugin, {
 
 const app = new Vue({
     router,
+    // @ts-ignore
     store,
     render: function(h) {
         return h(App);
