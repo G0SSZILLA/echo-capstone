@@ -13,6 +13,7 @@
               v-model="newComment.content"
               placeholder="Comment here..."
               rows="2"
+              @keyup.enter="addComment()"
             ></textarea>
           </div>
         </div>
