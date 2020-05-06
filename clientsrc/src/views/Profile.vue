@@ -1,7 +1,8 @@
 <template>
-  <div class="profile">
-<p>profile page</p>
-
+  <div class="profile pt-3 mt-5">
+<p>My Profile</p>
+<div>{{this.user.name}} </div>
+<div>{{this.user.email}}</div>
   </div>
 </template>
 
@@ -12,7 +13,14 @@ export default {
   data(){
     return {}
   },
-  computed:{},
+  computed:{
+    user() {
+    return this.$store.state.user
+  },
+  },
+  mounted() {
+    this.$store.dispatch("getProfile")
+  },
   methods:{},
   components:{}
 }

@@ -1,22 +1,33 @@
 <template>
   <div class="commentComp">
-    <div class="row justify-content-center border-top border-bottom py-2">
-        <div class="col-10"></div>
-        <div class="col-2 p-0">
+    <div class="row justify-content-center border-top py-2">
+      <div class="col-10"></div>
+
+      <div class="dropdown show">
         <button
-          v-if="this.$auth.user.email == this.commentData.creatorEmail"
-          class="btn text-danger btn-sm p-0"
-          style="font-size: 1.5rem"
-          @click="deleteComment()"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Delete This Comment"
-        >&times;</button>
+          class="bg-transparent border-0"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item ml-2" href="#">Report Comment</a>
+          <button
+            v-if="this.$auth.user.email == this.commentData.creatorEmail"
+            class="btn text-danger btn-sm ml-3"
+            style="font-size: 1.1rem"
+            @click="deleteComment()"
+          >Delete Comment</button>
         </div>
-      <div class="col-12">
-        <h5>{{commentData.content}}</h5>
-        <p style="font-size: 13px">- {{commentData.creator.name}}</p>
       </div>
+    </div>
+    <div class="col-12">
+      <h5>{{commentData.content}}</h5>
+      <p style="font-size: 13px">- {{commentData.creator.name}}</p>
     </div>
   </div>
 </template>

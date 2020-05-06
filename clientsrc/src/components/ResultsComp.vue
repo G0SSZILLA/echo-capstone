@@ -1,9 +1,11 @@
 <template>
-  <div class="ResultsComp">
-    <div class="mx-5">
-    <div class="progress bg-warning" style="height:10px; border-radius: 1px;">
+  <div class="ResultsComp container">
+    <div class="row">
+      <div class="col-2 px-0 font-didact text-center">{{supportPercent}}%</div>
+    <div class="col-8 px-0 mt-1">
+    <div class="progress bg-warning" style="height:12px; border-radius: 1px;">
       <div
-        class="progress-bar" style="height:10px; border-radius: 1px"
+        class="progress-bar" style="height:12px; border-radius: 1px"
         role="progressbar"
         :style="resultsBar"
         aria-valuenow="25"
@@ -11,13 +13,9 @@
         aria-valuemax="100"
       ></div>
     </div>
-        </div>
-<div class="mx-0">
-    <div class="d-flex justify-content-between">
-      <span style="position:relative; top:-17px">{{supportPercent}}%</span>
-      <span style="position:relative; top:-17px">{{disregardPercent}}%</span>
       </div>
-      </div>
+<div class="col-2 px-0 font-didact text-center">{{disregardPercent}}%</div>
+    </div>
   </div>
 </template>
 
