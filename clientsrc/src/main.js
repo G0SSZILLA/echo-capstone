@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import { Auth0Plugin } from "@bcwdev/auth0-vue";
 import { domain, clientId, audience } from "./authConfig";
+import axios from "axios";
 
 Vue.use(Auth0Plugin, {
     domain,
@@ -23,6 +24,7 @@ const app = new Vue({
     router,
     // @ts-ignore
     store,
+    axios,
     render: function(h) {
         return h(App);
     }
