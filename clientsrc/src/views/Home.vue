@@ -20,12 +20,10 @@ export default {
   name: "home",
   data() {
     return {
-      newest: true,
+    newest: true,
     };
   },
-  created() {
-    this.$store.dispatch("getPosts");
-  },
+  
   mounted() {
     let observer = new IntersectionObserver(this.loadNextPosts, {
       // root: document.body
@@ -37,25 +35,17 @@ export default {
   computed: {
     posts() {
       if (this.newest) {
+        
         return this.$store.state.posts.sort(
           (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-        );
-      }
+        );      }
     }
   },
   methods: {
     async loadNextPosts() {
-      try{
-       let res = await this.$axios.get('api/posts?skip='+ this.$store.state.posts.length)
-       console.log(res);
-       
-      //  this.$store.commit("addPosts", res)
-        this.posts.push(...res)
-      }catch(e){
-
-      }
-
-      console.log("Near the bottom???", arguments);
+      
+        await this.$store.dispatch("getPosts", this.posts.length)
+        console.log("Near the bottom???", arguments);
     }
   },
   components: { CreatePostComp, PostComp }

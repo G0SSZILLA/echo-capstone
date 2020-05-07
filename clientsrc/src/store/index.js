@@ -34,7 +34,7 @@ export default new Vuex.Store({
             state.post = post;
         },
         setPosts(state, posts) {
-            state.posts = posts;
+            state.posts.push(...posts);
         },
         setActivePost(state, post = { support: [], disregard: [] }) {
             state.activePost = post;
@@ -73,14 +73,19 @@ export default new Vuex.Store({
 
         //#region -- POSTS --
 
-        async getPosts({ commit, dispatch }) {
-            try {
-                let res = await api.get("posts");
-                console.log("from get posts in store", res);
-                commit("setPosts", res.data);
-            } catch (error) {
-                console.error(error, "failed to get posts from get posts in store");
-            }
+        async getPosts({ commit, dispatch }, postsLength) {
+            return new Promise(async (resolve, reject) =>{
+                try {
+                    
+                    let res = await api.get("posts?skip=" + postsLength);
+                    console.log("from get posts in store", res);
+                    commit("setPosts", res.data);
+                    resolve()
+                } catch (error) {
+                    console.error(error, "failed to get posts from get posts in store");
+                    reject(error)
+                }
+            }) 
         },
 
         async getPost({ commit, dispatch }, postId) {

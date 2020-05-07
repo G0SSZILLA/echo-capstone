@@ -4,7 +4,7 @@ import { BadRequest } from "../utils/Errors"
 
 class PostsService {
     async getAll(skip = 0) {
-        return await dbContext.Posts.find({}).skip(skip).limit(5).populate("creator", "name picture")
+        return await dbContext.Posts.find({}).skip(+skip).limit(5).populate("creator", "name picture")
     }
 
     async getById(id) {
