@@ -97,6 +97,7 @@ export default new Vuex.Store({
 
                 if (
                     res.data.support &&
+                    // @ts-ignore
                     res.data.support.find(i => i == this.$app.$auth.user.email)
                 ) {
                     dispatch(
