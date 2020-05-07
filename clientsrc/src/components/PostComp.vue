@@ -3,7 +3,7 @@
     <div class="card shadow my-2 mx-0">
       <div class="row">
         <div class="col-6">
-      <!-- <p class="ml-2 text-left">{{postData.creatorEmail}}</p> -->
+          <!-- <p class="ml-2 text-left">{{postData.creatorEmail}}</p> -->
         </div>
         <div class="col-6">
           <!-- <p class="mr-2 text-right">{{date()}}</p> -->
@@ -12,8 +12,11 @@
       <img class="card-img-top" v-if="postData.picture" :src="postData.picture" />
       <div class="card-body pb-2">
         <h4 class="card-title">{{postData.title}}</h4>
-        <p @click="seeMoreContent()" v-show="displayContent" :class="{'overflow-hidden': !showMore, 'heightSomething': !showMore, 'card-text': displayContent}">
-          {{postData.content}}</p>
+        <p
+          @click="seeMoreContent()"
+          v-show="displayContent"
+          :class="{'overflow-hidden': !showMore, 'heightSomething': !showMore, 'card-text': displayContent}"
+        >{{postData.content}}</p>
         <div class="card-footer px-2 pb-0 pt-3 bg-white" v-if="$auth.isAuthenticated">
           <div v-if="$auth.user.email_verified">
             <a
@@ -53,8 +56,15 @@ export default {
       displayContent: true,
       showMore: false,
       showButton: true,
-      chooseVote: {}
+      chooseVote: {},
+      showLoading: true
     };
+  },
+  mounted() {
+    if (this.postData.id == "5eb44a4e8d282358341e8b47") {
+      let firstPost = new IntersectionObserver(this.hideLoading);
+      observer.observe(firstPost);
+    }
   },
   created() {
     this.newMethod();
@@ -68,9 +78,7 @@ export default {
     user() {
       return this.$store.state.user;
     },
-    choice() {
-      
-    }
+    choice() {}
   },
   methods: {
     chooseSupport() {
@@ -83,9 +91,9 @@ export default {
       this.showButton = false;
     },
 
-seeMoreContent(){
-this.showMore = !this.showMore
-},
+    seeMoreContent() {
+      this.showMore = !this.showMore;
+    },
 
     chooseDisregard() {
       this.postData.disregard.push(this.$auth.user.email);
@@ -112,7 +120,7 @@ this.showMore = !this.showMore
     },
 
     showResults() {
-      this.showButton = false
+      this.showButton = false;
     },
 
     newMethod() {
@@ -134,11 +142,13 @@ this.showMore = !this.showMore
       }
     },
 
- date() {
+    date() {
       let date = this.postData.updatedAt.split("T");
       return date[0];
+    },
+    hideLoading() {
+      this.$emit("reached-last-post");
     }
-
   },
 
   components: {
@@ -149,7 +159,7 @@ this.showMore = !this.showMore
 
 
 <style scoped>
-.heightSomething{
- max-height: 4.5rem;
+.heightSomething {
+  max-height: 4.5rem;
 }
 </style>

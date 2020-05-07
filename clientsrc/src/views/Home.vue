@@ -8,7 +8,12 @@
       </div>
     </div>
     <PostComp v-for="post in posts" :key="post.id" :postData="post" />
-    <div ref="bottomTrigger" class="col-12">
+    <div
+      v-on:reached-last-post="showLoading = false"
+      v-show="showLoading"
+      ref="bottomTrigger"
+      class="col-12"
+    >
       <div class="spinner-grow spinner-grow-sm" role="status">
         <span class="sr-only">Loading...</span>
       </div>
@@ -36,7 +41,6 @@ export default {
 
   mounted() {
     let observer = new IntersectionObserver(this.loadNextPosts, {
-      // root: document.body
       rootMargin: "500px",
       threshold: 0
     });

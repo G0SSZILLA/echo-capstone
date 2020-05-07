@@ -16,44 +16,44 @@ import { authGuard } from "@bcwdev/auth0-vue"
 Vue.use(Router)
 
 let router = new Router({
-    routes: [{
-            path: '/',
-            name: 'home',
-            component: Home,
-        },
-        {
-            path: '/profile',
-            name: 'profile',
-            component: Profile,
-            beforeEnter: authGuard
-        },
-        {
-            path: '/posts/:postId',
-            name: 'postDetails',
-            component: PostDetails,
-            beforeEnter: authGuard
-        },
+  routes: [{
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    beforeEnter: authGuard
+  },
+  {
+    path: '/posts/:postId',
+    name: 'postDetails',
+    component: PostDetails,
+    beforeEnter: authGuard
+  },
 
-        {
-            path: '/about',
-            name: 'about',
-            component: About
-        },
+  {
+    path: '/about',
+    name: 'about',
+    component: About
+  },
 
-        {
-            path: "*",
-            name: 'noRoute',
-            component: noRoute
-        }
-    ]
+  {
+    path: "*",
+    name: 'noRoute',
+    component: noRoute
+  }
+  ]
 })
 
 router.beforeEach((to, from, next) => {
-    // @ts-ignore
-    if (to.name != "home" && router.app.$auth.user.email_verified == false) {
-        next({ name: "home" })
-    }
-    next()
+  // @ts-ignore
+  if (to.name != "home" || "noRoute" && router.app.$auth.user.email_verified == false) {
+    next({ name: "home" })
+  }
+  next()
 })
 
 export default router
