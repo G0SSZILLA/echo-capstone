@@ -20,10 +20,10 @@ export default {
   name: "home",
   data() {
     return {
-    newest: true,
+      newest: true
     };
   },
-  
+
   mounted() {
     let observer = new IntersectionObserver(this.loadNextPosts, {
       // root: document.body
@@ -35,17 +35,16 @@ export default {
   computed: {
     posts() {
       if (this.newest) {
-        
         return this.$store.state.posts.sort(
           (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-        );      }
+        );
+      }
     }
   },
   methods: {
     async loadNextPosts() {
-      
-        await this.$store.dispatch("getPosts", this.posts.length)
-        console.log("Near the bottom???", arguments);
+      await this.$store.dispatch("getPosts", this.posts.length);
+      console.log("Near the bottom???", arguments);
     }
   },
   components: { CreatePostComp, PostComp }
@@ -57,6 +56,7 @@ export default {
 .bottom-trigger {
   width: 10vw;
   height: 30px;
+  /* TODO remove background color */
   background: red;
 }
 </style>
