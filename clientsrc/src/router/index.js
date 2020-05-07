@@ -8,6 +8,8 @@ import Profile from '../views/Profile.vue'
 import PostDetails from '../views/PostDetails.vue'
 // @ts-ignore
 import About from '../views/About.vue'
+// @ts-ignore
+import noRoute from '../views/noRoute.vue'
 
 import { authGuard } from "@bcwdev/auth0-vue"
 
@@ -40,7 +42,8 @@ let router = new Router({
 
         {
             path: "*",
-            redirect: '/'
+            name: 'noRoute',
+            component: noRoute
         }
     ]
 })

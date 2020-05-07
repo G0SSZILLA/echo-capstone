@@ -46,9 +46,10 @@ export default {
   methods: {
     async loadNextPosts() {
       try{
-      let res = await fetch('http://localhost:8080/api/posts?skip='+ this.posts.length)
-       console.log(res)
-       console.log(window.location.href)
+       let res = await this.$axios.get('api/posts?skip='+ this.$store.state.posts.length)
+       console.log(res);
+       
+      //  this.$store.commit("addPosts", res)
         this.posts.push(...res)
       }catch(e){
 
