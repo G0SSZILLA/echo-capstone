@@ -12,9 +12,9 @@ export const base = window.location.host.includes("localhost")
   : "/";
 
 let api = Axios.create({
-  baseURL: base + "api/",
-  timeout: 10000,
-  withCredentials: true,
+    baseURL: base + "api/",
+    timeout: 10000,
+    withCredentials: true,
 });
 
 export default new Vuex.Store({
