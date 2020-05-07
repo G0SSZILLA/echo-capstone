@@ -62,7 +62,7 @@ export default {
   },
   mounted() {
     if (this.postData.id == "5eb44a4e8d282358341e8b47") {
-      let observer = new IntersectionObserver(this.hideLoading, {});
+      let observer = new IntersectionObserver(this.hideLoading);
       observer.observe(this.$refs.theLastPost);
     }
   },
