@@ -108,7 +108,7 @@ export default {
       await this.$auth.loginWithPopup();
       this.$store.dispatch("setBearer", this.$auth.bearer);
       this.$store.dispatch("getProfile");
-      this.$store.dispatch("getPosts");
+      // this.$store.dispatch("getPosts");
     },
 
     goToDetails() {

@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       newest: true,
-      showLoading: true
+      showLoading: true,
+      lastLoaded: false
     };
   },
 
@@ -45,12 +46,21 @@ export default {
           (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
         );
       }
+    },
+    loadingPosts() {
+      return this.$store.state.loadingPosts;
     }
   },
   methods: {
     async loadNextPosts() {
-      await this.$store.dispatch("getPosts", this.posts.length);
-      console.log("Near the bottom???");
+      if (this.loadingPosts == false && this.lastLoaded == false) {
+        this.$store.commit("setLoadingPosts", true);
+        let res = await this.$store.dispatch("getPosts", this.posts.length);
+        if (res.data.length == 0) {
+          this.lastLoaded = true;
+        }
+        console.log("Near the bottom???");
+      }
     }
     // hideDots() {
     //   console.log("called from hideDots");
