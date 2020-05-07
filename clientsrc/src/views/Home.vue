@@ -8,7 +8,17 @@
       </div>
     </div>
     <PostComp v-for="post in posts" :key="post.id" :postData="post" />
-    <div ref="bottomTrigger" class="bottom-trigger"></div>
+    <div ref="bottomTrigger" class="col-12">
+      <div class="spinner-grow spinner-grow-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -54,7 +64,7 @@ export default {
 
 <style scoped>
 .bottom-trigger {
-  width: 10vw;
+  width: 90vw;
   height: 30px;
   /* TODO remove background color */
   background: red;
