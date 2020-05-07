@@ -8,21 +8,12 @@
       </div>
     </div>
     <PostComp v-for="post in posts" :key="post.id" :postData="post" />
-    <div
-      v-on:reached-last-post="showLoading = false"
-      v-show="showLoading"
-      ref="bottomTrigger"
-      class="col-12"
-    >
+    <div v-on:reached-last-post="hideDots()" v-if="showLoading" ref="bottomTrigger" class="col-12">
       <div class="spinner-grow spinner-grow-sm" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow spinner-grow-sm" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+      <div class="spinner-grow spinner-grow-sm" role="status"></div>
+      <div class="spinner-grow spinner-grow-sm" role="status"></div>
     </div>
   </div>
 </template>
@@ -35,7 +26,8 @@ export default {
   name: "home",
   data() {
     return {
-      newest: true
+      newest: true,
+      showLoading: true
     };
   },
 
@@ -58,7 +50,11 @@ export default {
   methods: {
     async loadNextPosts() {
       await this.$store.dispatch("getPosts", this.posts.length);
-      console.log("Near the bottom???", arguments);
+      console.log("Near the bottom???");
+    },
+    hideDots() {
+      console.log("called from hideDots");
+      showLoading = false;
     }
   },
   components: { CreatePostComp, PostComp }

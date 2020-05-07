@@ -39,6 +39,7 @@
         <div v-else>
           <button class="btn btn-dark" @click="logInUser()">Log in to vote</button>
         </div>
+        <div v-if="postData.id == '5eb44a4e8d282358341e8b47'" ref="theLastPost" />
       </div>
     </div>
   </div>
@@ -56,14 +57,13 @@ export default {
       displayContent: true,
       showMore: false,
       showButton: true,
-      chooseVote: {},
-      showLoading: true
+      chooseVote: {}
     };
   },
   mounted() {
     if (this.postData.id == "5eb44a4e8d282358341e8b47") {
-      let firstPost = new IntersectionObserver(this.hideLoading);
-      observer.observe(firstPost);
+      let observer = new IntersectionObserver(this.hideLoading, {});
+      observer.observe(this.$refs.theLastPost);
     }
   },
   created() {
@@ -148,6 +148,7 @@ export default {
     },
     hideLoading() {
       this.$emit("reached-last-post");
+      console.log("called from hideLoading");
     }
   },
 

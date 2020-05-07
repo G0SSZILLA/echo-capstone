@@ -49,7 +49,7 @@ export default {
       this.$store.dispatch("getProfile");
       console.log("this.$auth.user: ");
       console.log(this.$auth.user);
-      this.$store.dispatch("getPosts");
+      // this.$store.dispatch("getPosts");
     },
     async logout() {
       await this.$auth.logout({ returnTo: window.location.origin });
