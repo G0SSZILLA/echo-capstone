@@ -39,7 +39,7 @@
         <div v-else>
           <button class="btn btn-dark" @click="logInUser()">Log in to vote</button>
         </div>
-        <div v-if="postData.id == '5eb44a4e8d282358341e8b47'" ref="theLastPost" />
+        <!-- <div v-if="postData.id == '5eb44a4e8d282358341e8b47'" ref="theLastPost" /> -->
       </div>
     </div>
   </div>
@@ -61,17 +61,17 @@ export default {
     };
   },
   mounted() {
-    if (this.postData.id == "5eb44a4e8d282358341e8b47") {
-      let observer = new IntersectionObserver(this.hideLoading);
-      observer.observe(this.$refs.theLastPost);
-    }
+    // if (this.postData.id == "5eb44a4e8d282358341e8b47") {
+    //   let observer = new IntersectionObserver(this.hideLoading);
+    //   observer.observe(this.$refs.theLastPost);
+    // }
   },
   created() {
-    this.newMethod();
+    this.hideButtons();
   },
   watch: {
     user: function(newVal, oldVal) {
-      this.newMethod();
+      this.hideButtons();
     }
   },
   computed: {
@@ -123,7 +123,7 @@ export default {
       this.showButton = false;
     },
 
-    newMethod() {
+    hideButtons() {
       if (this.$auth.isAuthenticated) {
         let i = this.postData.support.find(
           element => element == this.$auth.user.email
@@ -145,11 +145,11 @@ export default {
     date() {
       let date = this.postData.updatedAt.split("T");
       return date[0];
-    },
-    hideLoading() {
-      this.$emit("reached-last-post");
-      console.log("called from hideLoading");
     }
+    // hideLoading() {
+    //   this.$emit("reached-last-post");
+    //   console.log("called from hideLoading");
+    // }
   },
 
   components: {

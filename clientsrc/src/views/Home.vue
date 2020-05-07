@@ -8,7 +8,7 @@
       </div>
     </div>
     <PostComp v-for="post in posts" :key="post.id" :postData="post" />
-    <div @reached-last-post="hideDots()" v-if="showLoading" ref="bottomTrigger" class="col-12">
+    <div ref="bottomTrigger" class="col-12">
       <div class="spinner-grow spinner-grow-sm" role="status">
         <span class="sr-only">Loading...</span>
       </div>
@@ -51,11 +51,11 @@ export default {
     async loadNextPosts() {
       await this.$store.dispatch("getPosts", this.posts.length);
       console.log("Near the bottom???");
-    },
-    hideDots() {
-      console.log("called from hideDots");
-      showLoading = false;
     }
+    // hideDots() {
+    //   console.log("called from hideDots");
+    //   showLoading = false;
+    // }
   },
   components: { CreatePostComp, PostComp }
 };
