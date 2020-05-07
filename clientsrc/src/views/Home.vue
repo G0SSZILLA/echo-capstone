@@ -27,7 +27,7 @@ export default {
   mounted() {
     let observer = new IntersectionObserver(this.loadNextPosts, {
       // root: document.body
-      // rootMargin: "50px",
+      rootMargin: "500px",
       threshold: 0
     });
     observer.observe(this.$refs.bottomTrigger);

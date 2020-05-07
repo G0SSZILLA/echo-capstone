@@ -23,7 +23,6 @@ export class PostsController extends BaseController {
 
     async getAll(req, res, next) {
         try {
-            // NO 
             let data = await postsService.getAll(req.query.skip);
             return res.send(data);
         } catch (error) {
