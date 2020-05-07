@@ -67,6 +67,6 @@ export default {
   width: 90vw;
   height: 30px;
   /* TODO remove background color */
-  background: red;
+  /* background: red; */
 }
 </style>
