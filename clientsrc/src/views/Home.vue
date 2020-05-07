@@ -29,7 +29,7 @@ export default {
   mounted() {
     let observer = new IntersectionObserver(this.loadNextPosts, {
       // root: document.body
-      // rootMargin: "50px",
+      rootMargin: "500px",
       threshold: 0
     });
     observer.observe(this.$refs.bottomTrigger);
@@ -46,8 +46,10 @@ export default {
   methods: {
     async loadNextPosts() {
       try{
-       let res = await fetch(window.location.href+ '?skip='+ this.posts.length)
-        this.posts.push(...res.data)
+      let res = await fetch('http://localhost:8080/api/posts?skip='+ this.posts.length)
+       console.log(res)
+       console.log(window.location.href)
+        this.posts.push(...res)
       }catch(e){
 
       }
