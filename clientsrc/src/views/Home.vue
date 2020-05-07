@@ -27,8 +27,7 @@ export default {
   data() {
     return {
       newest: true,
-      showLoading: true,
-      lastLoaded: false
+      showLoading: true
     };
   },
 
@@ -49,16 +48,16 @@ export default {
     },
     loadingPosts() {
       return this.$store.state.loadingPosts;
+    },
+    lastLoaded() {
+      return this.$store.state.lastLoaded;
     }
   },
   methods: {
     async loadNextPosts() {
       if (this.loadingPosts == false && this.lastLoaded == false) {
         this.$store.commit("setLoadingPosts", true);
-        let res = await this.$store.dispatch("getPosts", this.posts.length);
-        if (res.data.length == 0) {
-          this.lastLoaded = true;
-        }
+        await this.$store.dispatch("getPosts", this.posts.length);
         console.log("Near the bottom???");
       }
     }
