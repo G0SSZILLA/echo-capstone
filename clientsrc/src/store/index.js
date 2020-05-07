@@ -2,14 +2,14 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
 import router from "../router/index";
-import { SocketStore } from "./SocketStore"
+import { SocketStore } from "./SocketStore";
 
 Vue.use(Vuex);
 
 //Allows axios to work locally or live
-export const base = window.location.host.includes("localhost") ?
-  "//localhost:3000/" :
-  "/";
+export const base = window.location.host.includes("localhost")
+  ? "//localhost:3000/"
+  : "/";
 
 let api = Axios.create({
   baseURL: base + "api/",
@@ -26,7 +26,7 @@ export default new Vuex.Store({
     comments: [],
     choice: {},
     loadingPosts: false,
-    lastLoaded: false
+    lastLoaded: false,
   },
   mutations: {
     setUser(state, user) {
@@ -45,18 +45,21 @@ export default new Vuex.Store({
       state.comments = comments;
     },
     setLoadingPosts(state, bool) {
-      state.loadingPosts = bool
+      state.loadingPosts = bool;
     },
     setLastLoaded(state, bool) {
-      state.lastLoaded = bool
-    }
-
+      state.lastLoaded = bool;
+    },
+    setRemovePost(state, postId){
+      let res = state.posts.find(x => x.id == postId)
+      state.posts.splice(res, 1)
+    },
   },
   actions: {
     //#region -- AUTH STUFF --
     setBearer({ dispatch }, bearer) {
       api.defaults.headers.authorization = bearer;
-      dispatch('initializeSocket', bearer);
+      dispatch("initializeSocket", bearer);
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
@@ -84,21 +87,20 @@ export default new Vuex.Store({
     async getPosts({ commit, dispatch }, postsLength) {
       return new Promise(async (resolve, reject) => {
         try {
-
           let res = await api.get("posts?skip=" + postsLength);
           console.log("from get posts in store", res);
           commit("setPosts", res.data);
-          resolve()
-          commit("setLoadingPosts", false)
+          resolve();
+          commit("setLoadingPosts", false);
           //NOTE change this if .limit is changed in PostsService
-          if (res.data.length < 5) {
-            commit("setLastLoaded", true)
+          if (res.data.length == 0) {
+            commit("setLastLoaded", true);
           }
         } catch (error) {
           console.error(error, "failed to get posts from get posts in store");
-          reject(error)
+          reject(error);
         }
-      })
+      });
     },
 
     async getPost({ commit, dispatch }, postId) {
@@ -110,20 +112,13 @@ export default new Vuex.Store({
 
         if (
           res.data.support &&
-          res.data.support.find(i => i == this.$app.$auth.user.email)
+          // @ts-ignore
+          res.data.support.find((i) => i == this.$app.$auth.user.email)
         ) {
-          dispatch(
-            "JoinRoom",
-            res.data.id + ":support"
-          );
+          dispatch("JoinRoom", res.data.id + ":support");
         } else {
-          dispatch(
-            "JoinRoom",
-            res.data.id + ":disregard"
-          );
-
-        };
-
+          dispatch("JoinRoom", res.data.id + ":disregard");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -135,18 +130,23 @@ export default new Vuex.Store({
         console.log("addPost from store", postData);
         // NOTE do we want this to push us to the post details page
         // dispatch("getPosts");
-
       } catch (error) {
         console.error(error, "addPost in store failing");
       }
     },
-    async deletePost({ dispatch }, postId) {
+    async deletePost({ commit, dispatch }, postId) {
       try {
-        await api.delete("posts/" + postId)
-        dispatch("getPosts")
+        dispatch("removeFromArray", postId);
+        await api.delete("posts/" + postId);
+        let posts = [];
+        commit("setPosts", posts);
+        router.push({ name: "home", params: {} });
       } catch (error) {
         console.error("deletePost failed: ", error);
       }
+    },
+    removeFromArray({ commit }, postId) {
+      commit('setRemovePost', postId)
     },
     //#endregion
 
@@ -170,8 +170,8 @@ export default new Vuex.Store({
     },
     async deleteComment({ dispatch }, comment) {
       try {
-        await api.delete("comments/" + comment.id)
-        dispatch("getComments", comment.postId)
+        await api.delete("comments/" + comment.id);
+        dispatch("getComments", comment.postId);
       } catch (error) {
         console.error("deleteComment failed: ", error);
       }
@@ -182,6 +182,6 @@ export default new Vuex.Store({
     //#endregion
   },
   modules: {
-    SocketStore
-  }
+    SocketStore,
+  },
 });

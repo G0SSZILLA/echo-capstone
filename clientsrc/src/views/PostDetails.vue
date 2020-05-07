@@ -98,8 +98,7 @@ export default {
       }).then(result => {
         if (result.value) {
           Swal.fire("Deleted!", "Your Post has been deleted.", "success");
-          this.$store.dispatch("deletePost", this.$route.params.postId);
-          this.$router.push({ name: "home" });
+          this.$store.dispatch("deletePost", this.post.id);
         }
       });
     },
