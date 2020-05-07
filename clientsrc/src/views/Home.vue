@@ -8,7 +8,7 @@
       </div>
     </div>
     <PostComp v-for="post in posts" :key="post.id" :postData="post" />
-    <div ref="bottomTrigger" class="col-12">
+    <div v-show="!lastLoaded" ref="bottomTrigger" class="col-12">
       <div class="spinner-grow spinner-grow-sm" role="status">
         <span class="sr-only">Loading...</span>
       </div>
