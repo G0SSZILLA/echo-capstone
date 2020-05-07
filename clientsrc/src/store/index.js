@@ -24,7 +24,8 @@ export default new Vuex.Store({
     activePost: { support: [], disregard: [] },
     posts: [],
     comments: [],
-    choice: {}
+    choice: {},
+    loadingPosts: false
   },
   mutations: {
     setUser(state, user) {
@@ -42,6 +43,9 @@ export default new Vuex.Store({
     setComments(state, comments) {
       state.comments = comments;
     },
+    setLoadingPosts(state, bool) {
+      state.loadingPosts = bool
+    }
 
   },
   actions: {
@@ -81,6 +85,7 @@ export default new Vuex.Store({
           console.log("from get posts in store", res);
           commit("setPosts", res.data);
           resolve()
+          commit("setLoadingPosts", false)
         } catch (error) {
           console.error(error, "failed to get posts from get posts in store");
           reject(error)
