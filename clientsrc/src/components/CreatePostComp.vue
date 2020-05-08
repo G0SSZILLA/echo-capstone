@@ -70,7 +70,7 @@
         class="btn bg-dark text-white shadow float-right mr-2 mt-3"
         data-toggle="modal"
         data-target="#orangeModalSubscription"
-        style="border-radius: 50%"
+        style="border-radius: 50%; position:absolute; z-index:1"
       >&plus;</a>
     </div>
   </div>
