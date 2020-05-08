@@ -91,7 +91,6 @@ export default new Vuex.Store({
           console.log("from get posts in store", res);
           commit("setPosts", res.data);
           resolve();
-          commit("setLoadingPosts", false);
           //NOTE change this if .limit is changed in PostsService
           if (res.data.length == 0) {
             commit("setLastLoaded", true);
@@ -99,6 +98,9 @@ export default new Vuex.Store({
         } catch (error) {
           console.error(error, "failed to get posts from get posts in store");
           reject(error);
+        }
+        finally {
+          commit("setLoadingPosts", false);
         }
       });
     },
