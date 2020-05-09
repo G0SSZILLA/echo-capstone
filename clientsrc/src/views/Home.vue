@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       newest: true,
-      showLoading: true
+      showLoading: true,
+      time: ""
     };
   },
 
@@ -37,13 +38,15 @@ export default {
       threshold: 0
     });
     observer.observe(this.$refs.bottomTrigger);
+  this.time = (new Date(Date.now())).toISOString()
   },
   computed: {
     posts() {
       if (this.newest) {
-        return this.$store.state.posts.sort(
-          (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-        );
+        return this.$store.state.posts
+        // .sort(
+        //   (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+        // );
       }
     },
     loadingPosts() {
@@ -51,13 +54,20 @@ export default {
     },
     lastLoaded() {
       return this.$store.state.lastLoaded;
+    },
+    timestamp(){
+      return this.$store.state.timestamp
     }
   },
   methods: {
     async loadNextPosts() {
       if (this.loadingPosts == false && this.lastLoaded == false) {
+        if (!this.timestamp){
+          let d = new Date(Date.now())
+          this.time = d.toISOString()
+        }else{this.time = this.timestamp}
         this.$store.commit("setLoadingPosts", true);
-        await this.$store.dispatch("getPosts", this.posts.length);
+        await this.$store.dispatch("getPosts", this.time);
         console.log("Near the bottom???");
       }
     }

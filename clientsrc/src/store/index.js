@@ -27,6 +27,7 @@ export default new Vuex.Store({
     choice: {},
     loadingPosts: false,
     lastLoaded: false,
+    timestamp: "",
   },
   mutations: {
     setUser(state, user) {
@@ -54,6 +55,9 @@ export default new Vuex.Store({
       let res = state.posts.find(x => x.id == postId)
       state.posts.splice(res, 1)
     },
+    setTimestamp(state, timestamp){
+      state.timestamp = timestamp
+    }
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -84,15 +88,22 @@ export default new Vuex.Store({
 
     //#region -- POSTS --
 
-    async getPosts({ commit, dispatch }, postsLength) {
+    async getPosts({ commit, dispatch }, date) {
       return new Promise(async (resolve, reject) => {
         try {
-          let res = await api.get("posts?skip=" + postsLength);
+
+          let res = await api.get("posts?date=" + date);
           console.log("from get posts in store", res);
           commit("setPosts", res.data);
-          resolve();
+          let length = res.data.length
+          if (length > 0) { 
+            commit("setTimestamp", res.data[length - 1].createdAt)
+            console.log("getPosts setTimestamp: ",res.data);
+          }else {commit("setTimestamp", date)}
+          
           //NOTE change this if .limit is changed in PostsService
-          if (res.data.length == 0) {
+          resolve();
+          if (length == 0) {
             commit("setLastLoaded", true);
           }
         } catch (error) {
