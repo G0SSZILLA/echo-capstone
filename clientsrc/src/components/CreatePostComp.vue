@@ -78,6 +78,7 @@
 
 
 <script>
+import firebase from 'firebase'
 export default {
   name: "createPostComp",
   props: ["createData"],
@@ -99,22 +100,31 @@ export default {
     },
 
     async encodeImage(event) {
-      let file = event.target.files[0];
-      let reader = new FileReader();
-      reader.onload = event => {
-        this.newPost.picture = reader.result;
-        let img = document.createElement("img");
-        img.src = reader.result;
-        img.classList.add("img-fluid");
-        document.getElementById("imageUpload").innerHTML = "";
-        document.getElementById("imageUpload").appendChild(img);
-      };
-      reader.onerror = err => console.error(err);
-      await reader.readAsDataURL(file);
-      // NOTE sweet alert err for invalid picture with betasaur
-      //   NOTE img stays in modal after creating post. fix it
-    }
+      let imageData = event.target.files[0];
+      console.log('this is our event', event.target.files[0]);
+      const storageRef = firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
+      storageRef.snapshot.ref.getDownloadUrl().then((url)=>{this.picture=url;});
+      },
+
+
+    //   let file = event.target.files[0];
+    //   let reader = new FileReader();
+    //   reader.onload = event => {
+    //     this.newPost.picture = reader.result;
+    //     let img = document.createElement("img");
+    //     img.src = reader.result;
+    //     img.classList.add("img-fluid");
+    //     document.getElementById("imageUpload").innerHTML = "";
+    //     document.getElementById("imageUpload").appendChild(img);
+    //   };
+    //   reader.onerror = err => console.error(err);
+    //   await reader.readAsDataURL(file);
+    //   // NOTE sweet alert err for invalid picture with betasaur
+    //   //   NOTE img stays in modal after creating post. fix it
+    // }
+
   },
+
   components: {}
 };
 </script>
