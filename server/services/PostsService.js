@@ -4,9 +4,10 @@ import { BadRequest } from "../utils/Errors";
 class PostsService {
   async getAll(date) {
     // return await dbContext.Posts.find({}).skip(+skip).limit(10).populate("creator", "name picture")
-    return await dbContext.Posts.find({
-      createdAt: { $lte: date},
-    }).limit(10)
+    return await dbContext.Posts.aggregate([
+    {$match: {createdAt: {$lte: date}}},
+    {$limit: 10}
+])
     // .aggregate([{
     //     $sort: {createdAt: -1}}],
     // {limit: 5}
