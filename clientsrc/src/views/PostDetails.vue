@@ -17,7 +17,7 @@
               <i class="fas fa-ellipsis-h"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item ml-2" href="#">Report Post</a>
+              <a class="dropdown-item ml-2" href="#" @click="reportPost()">Report Post</a>
               <button
                 v-if="this.$auth.user.email == this.post.creatorEmail"
                 class="btn text-danger btn-sm ml-4"
