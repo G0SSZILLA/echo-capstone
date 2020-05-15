@@ -11,11 +11,12 @@
           id="dropdownMenuLink"
           data-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="false">
+          aria-expanded="false"
+        >
           <i class="fas fa-ellipsis-h"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item ml-2" href="#">Report Comment</a>
+          <a class="dropdown-item ml-2" href="#" @click="reportComment()">Report Comment</a>
           <button
             v-if="this.$auth.user.email == this.commentData.creatorEmail"
             class="btn text-danger btn-sm ml-3"
@@ -58,6 +59,32 @@ export default {
           this.$store.dispatch("deleteComment", this.commentData);
         }
       });
+    },
+    reportComment() {
+      var request = new XMLHttpRequest();
+      request.open(
+        "POST",
+        "https://discordapp.com/api/webhooks/710979982507114606/IigwL78AriQakiZnchhwQ1m4R4_oKJAKqSiYV0c6VCHFrWH66TQsynUj_jcQOybJZ0di"
+      );
+
+      request.setRequestHeader("Content-type", "application/json");
+
+      var params = {
+        username: this.$auth.user.name,
+        avatar_url: "",
+        content:
+          "User " +
+          this.$auth.user.name +
+          " reported comment " +
+          this.commentData.id +
+          " from user " +
+          this.commentData.creator.name +
+          ' for the content "' +
+          this.commentData.content +
+          '".'
+      };
+
+      request.send(JSON.stringify(params));
     }
   },
   components: {}

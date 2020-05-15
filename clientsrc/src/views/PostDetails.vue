@@ -4,25 +4,31 @@
     <div class="postComp">
       <div class="card m-2">
         <div class="card-header text-right rounded">
-
-<div class="dropdown show">
-  <button class="bg-transparent border-0"  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fas fa-ellipsis-h"></i>
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item ml-2" href="#">Report Post</a>
-          <button
-            v-if="this.$auth.user.email == this.post.creatorEmail"
-            class="btn text-danger btn-sm ml-4"
-            style="font-size: 1.1rem"
-            @click="deletePost()"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Delete This Post"
-          >Delete Post</button>
-  </div>
-</div>
-
+          <div class="dropdown show">
+            <button
+              class="bg-transparent border-0"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item ml-2" href="#">Report Post</a>
+              <button
+                v-if="this.$auth.user.email == this.post.creatorEmail"
+                class="btn text-danger btn-sm ml-4"
+                style="font-size: 1.1rem"
+                @click="deletePost()"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Delete This Post"
+              >Delete Post</button>
+            </div>
+          </div>
         </div>
         <img class="card-img-top shadow" v-if="post.picture" :src="post.picture" />
         <div class="card-body">
@@ -47,7 +53,7 @@
         <commentComp v-for="comment in comments" :commentData="comment" :key="comment.id" />
       </div>
     </div>
-      <!-- create comment comp sticky footerbar -->
+    <!-- create comment comp sticky footerbar -->
     <div>
       <CreateCommentComp />
     </div>
@@ -67,7 +73,6 @@ export default {
   mounted() {
     this.$store.dispatch("getPost", this.$route.params.postId);
     this.$store.dispatch("getComments", this.$route.params.postId);
-    
   },
   computed: {
     comments() {
@@ -102,7 +107,32 @@ export default {
         }
       });
     },
-    
+    reportPost() {
+      var request = new XMLHttpRequest();
+      request.open(
+        "POST",
+        "https://discordapp.com/api/webhooks/710979982507114606/IigwL78AriQakiZnchhwQ1m4R4_oKJAKqSiYV0c6VCHFrWH66TQsynUj_jcQOybJZ0di"
+      );
+
+      request.setRequestHeader("Content-type", "application/json");
+
+      var params = {
+        username: this.$auth.user.name,
+        avatar_url: "",
+        content:
+          "User " +
+          this.$auth.user.name +
+          " reported the post id " +
+          this.post.id +
+          " from user " +
+          this.post.creator.name +
+          ' for the post "' +
+          this.post.title +
+          '".'
+      };
+
+      request.send(JSON.stringify(params));
+    }
   },
   components: { CommentComp, CreateCommentComp, ResultsComp }
 };
