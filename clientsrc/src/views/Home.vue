@@ -43,12 +43,12 @@ export default {
   computed: {
     posts() {
       if (this.newest) {
-        return this.$store.state.posts
-        // .sort(
-        //   (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-        // );
-      }
-    },
+        
+        return this.$store.state.posts.sort(
+          (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+)
+}
+},
     loadingPosts() {
       return this.$store.state.loadingPosts;
     },
@@ -60,21 +60,13 @@ export default {
     }
   },
   methods: {
-    async loadNextPosts() {
+       async loadNextPosts() {
       if (this.loadingPosts == false && this.lastLoaded == false) {
-        if (!this.timestamp){
-          let d = new Date(Date.now())
-          this.time = d.toISOString()
-        }else{this.time = this.timestamp}
         this.$store.commit("setLoadingPosts", true);
-        await this.$store.dispatch("getPosts", this.time);
+        await this.$store.dispatch("getPosts", this.posts.length);
         console.log("Near the bottom???");
       }
     }
-    // hideDots() {
-    //   console.log("called from hideDots");
-    //   showLoading = false;
-    // }
   },
   components: { CreatePostComp, PostComp }
 };
@@ -84,7 +76,7 @@ export default {
 <style scoped>
 .bottom-trigger {
   width: 90vw;
-  height: 30px;
+  height: 300px;
   /* TODO remove background color */
   /* background: red; */
 }

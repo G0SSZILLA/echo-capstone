@@ -2,17 +2,9 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class PostsService {
-  async getAll(date) {
-    // return await dbContext.Posts.find({}).skip(+skip).limit(10).populate("creator", "name picture")
-    return await dbContext.Posts.aggregate([
-    {$match: {createdAt: {$lte: date}}},
-    {$limit: 10}
-])
-    // .aggregate([{
-    //     $sort: {createdAt: -1}}],
-    // {limit: 5}
-    // )
-  }
+  async getAll(skip = 0) {
+    return await dbContext.Posts.find({}).skip(+skip).limit(10).sort('-createdAt').populate("creator", "name picture")
+}
 
   async getById(id) {
     let data = await dbContext.Posts.findOne({ _id: id });

@@ -88,22 +88,15 @@ export default new Vuex.Store({
 
     //#region -- POSTS --
 
-    async getPosts({ commit, dispatch }, date) {
+    async getPosts({ commit, dispatch }, postsLength) {
       return new Promise(async (resolve, reject) => {
         try {
-
-          let res = await api.get("posts?date=" + date);
+          let res = await api.get("posts?skip=" + postsLength);
           console.log("from get posts in store", res);
           commit("setPosts", res.data);
-          let length = res.data.length
-          if (length > 0) { 
-            commit("setTimestamp", res.data[length - 1].createdAt)
-            console.log("getPosts setTimestamp: ",res.data);
-          }else {commit("setTimestamp", date)}
-          
-          //NOTE change this if .limit is changed in PostsService
           resolve();
-          if (length == 0) {
+          //NOTE change this if .limit is changed in PostsService
+          if (res.data.length == 0) {
             commit("setLastLoaded", true);
           }
         } catch (error) {
