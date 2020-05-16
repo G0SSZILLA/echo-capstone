@@ -11,17 +11,17 @@
         <!--Content-->
         <div class="modal-content m-auto">
           <!--Header-->
-          <div class="modal-header text-center">
-            <h4 class="modal-title white-text w-100 font-weight-bold py-2">Create a Post</h4>
+          <div class="modal-header text-center" v-if="this.$auth.user.email_verified">
+            <h4 class="modal-title white-text w-100 font-weight-bold py-2" >Create a Post</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true" class="white-text">&times;</span>
             </button>
           </div>
 
           <!--Body-->
-          <div class="modal-body">
+          <div class="modal-body" v-if="this.$auth.user.email_verified">
             <div class="md-form mb-4">
-              <i class="grey-text"></i>
+        <p>Modal body text goes here.</p>
               <label data-error="wrong" data-success="right" for="form3">Title</label>
               <input type="text" id="form3" class="form-control" v-model="newPost.title" />
             </div>
@@ -64,6 +64,12 @@
             <div class="modal-footer" id="imageUpload"></div>
           </div>
           </div>
+
+ <div class="modal-body" v-if="!this.$auth.user.email_verified">
+                <div class="md-form font-didact">In order to create a post, please verify your email: <b>{{this.$auth.user.email}}</b>
+                </div>
+  </div>
+
           <!--Footer-->
         </div>
         <!--/.Content-->
