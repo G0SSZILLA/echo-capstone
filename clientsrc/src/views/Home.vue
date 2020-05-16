@@ -77,7 +77,5 @@ export default {
 .bottom-trigger {
   width: 90vw;
   height: 300px;
-  /* TODO remove background color */
-  /* background: red; */
 }
 </style>
