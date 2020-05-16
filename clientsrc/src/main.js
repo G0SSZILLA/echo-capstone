@@ -22,13 +22,13 @@ Vue.use(Auth0Plugin, {
 });
 
 var firebaseConfig = {
-    apiKey: "AIzaSyDfKD0oQH_Cc7xDI0mozxqWsaEr4dAfsnY",
-    authDomain: "echo-betasaur.firebaseapp.com",
-    databaseURL: "https://echo-betasaur.firebaseio.com",
-    projectId: "echo-betasaur",
-    storageBucket: "echo-betasaur.appspot.com",
-    messagingSenderId: "167131218300",
-    appId: "1:167131218300:web:9934333ec3faccfc2f64f9"
+    apiKey: "AIzaSyC6caBv_PUysA60Ej569_gGA88ONbsdtXA",
+    authDomain: "betasaur-echo-1.firebaseapp.com",
+    databaseURL: "https://betasaur-echo-1.firebaseio.com",
+    projectId: "betasaur-echo-1",
+    storageBucket: "betasaur-echo-1.appspot.com",
+    messagingSenderId: "992394261094",
+    appId: "1:992394261094:web:e2f324aeb0a37753f8b3a7"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
