@@ -1,9 +1,9 @@
 <template>
   <div class="createCommentComp form">
-    <footer class="page-footer bg-dark fixed-bottom">
+    <footer class="createCommentFooter fixed-bottom">
       <div class="row p-1">
         <div class="col-3">
-          <button class="btn bg-light mt-2 ml-1 shadow" @click="backToHome()">Back</button>
+          <button class="btn bg-light btnMargin shadow" @click="backToHome()">Back</button>
         </div>
         <div class="col-6 p-0">
           <div class="md-form pink-textarea active-pink-textarea-2">
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="col-3">
-          <button type="submit" @click="addComment" class="btn bg-light shadow mt-2 mr-1">Send</button>
+          <button type="submit" @click="addComment" class="btn bg-light shadow btnMargin ">Send</button>
         </div>
       </div>
     </footer>
@@ -61,12 +61,14 @@ export default {
 
 
 <style scoped>
-
+.createCommentFooter{
+  background-color: #314448c7;
+}
+.btnMargin {
+  margin-top: .7rem;
+}
 textarea{
   outline: none;
   resize: none;
 }
-
-
-
 </style>
