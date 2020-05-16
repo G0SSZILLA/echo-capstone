@@ -60,6 +60,7 @@
                 <div v-show="hideAddPost">
             <p>Uploading Image...</p>
                 </div>
+                <!-- NOTE Currently no img preview on add Image -->
             <div class="modal-footer" id="imageUpload"></div>
           </div>
           </div>
@@ -103,6 +104,7 @@ export default {
       this.newPost.support[0] = this.$auth.user.email;
       this.$store.dispatch("addPost", this.newPost);
       this.newPost = {};
+      window.location.reload()
     },
     async encodeImage(event) {
       this.hideAddPost = true;
