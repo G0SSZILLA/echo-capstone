@@ -70,10 +70,10 @@
       </div>
     </div>
 
-    <div class="text-center">
+    <div class="text-center fixed-top mt-5 pt-4 mr-4">
       <a
         href
-        class="btn bg-dark text-white shadow float-right mr-2 mt-3"
+        class="btn bg-dark text-white shadow float-right"
         data-toggle="modal"
         data-target="#orangeModalSubscription"
         style="border-radius: 50%; z-index:1"
