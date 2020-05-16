@@ -5,7 +5,7 @@
         <div class="col-3">
           <button class="btn bg-light btnMargin shadow" @click="backToHome()">Back</button>
         </div>
-        <div class="col-6 p-0">
+        <div class="col-6 p-0" v-if="this.$auth.user.email_verified">
           <div class="md-form pink-textarea active-pink-textarea-2">
             <textarea
               id="form17"
@@ -17,8 +17,11 @@
             ></textarea>
           </div>
         </div>
-        <div class="col-3">
-          <button type="submit" @click="addComment" class="btn bg-light shadow btnMargin ">Send</button>
+        <div class="col-3" v-if="this.$auth.user.email_verified">
+          <button type="submit" @click="addComment" class="btn bg-light shadow btnMargin">Send</button>
+        </div>
+        <div class="col-9 text-left text-white font-didact" v-if="!this.$auth.user.email_verified">
+          In order to comment, please verify your email: <b>{{this.$auth.user.email}}</b>
         </div>
       </div>
     </footer>
