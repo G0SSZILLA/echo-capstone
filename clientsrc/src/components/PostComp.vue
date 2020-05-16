@@ -18,7 +18,7 @@
           :class="{'overflow-hidden': !showMore, 'heightSomething': !showMore, 'card-text': displayContent}"
         >{{postData.content}}</p>
         <div class="card-footer px-2 pb-0 pt-3 bg-white" v-if="$auth.isAuthenticated">
-          <div v-if="$auth.user.email_verified">
+          <div>
             <a
               href="#"
               class="btn btn-primary mb-3 text-white"
@@ -34,7 +34,6 @@
             <ResultsComp v-if="!showButton" :postData="postData" />
             <p class="mb-0 pb-0" @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
           </div>
-          <small v-else>User email is not verified.</small>
         </div>
         <div v-else>
           <button class="btn btn-dark" @click="logInUser()">Log in to vote</button>
