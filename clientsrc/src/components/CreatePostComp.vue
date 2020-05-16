@@ -21,7 +21,6 @@
           <!--Body-->
           <div class="modal-body" v-if="this.$auth.user.email_verified">
             <div class="md-form mb-4">
-        <p>Modal body text goes here.</p>
               <label data-error="wrong" data-success="right" for="form3">Title</label>
               <input type="text" id="form3" class="form-control" v-model="newPost.title" />
             </div>
