@@ -34,7 +34,8 @@
                 class="form-control"
                 rows="5"
                 cols="20"
-                v-model="newPost.content"/>
+                v-model="newPost.content"
+              />
             </div>
 
             <div class="md-form justify-content-center mt-4">
@@ -49,15 +50,19 @@
             </div>
             <div class="justify-content-center">
               <button
+                v-show="!hideAddPost"
                 type="button"
                 class="btn btn-primary waves-effect my-3 shadow"
                 data-dismiss="modal"
                 @click.prevent="addPost()"
               >Post</button>
-            </div>
+              <div v-show="hideAddPost" class="spinner-border mt-3" role="status" />
+                <div v-show="hideAddPost">
+            <p>Uploading Image...</p>
+                </div>
             <div class="modal-footer" id="imageUpload"></div>
           </div>
-
+          </div>
           <!--Footer-->
         </div>
         <!--/.Content-->
@@ -78,12 +83,13 @@
 
 
 <script>
-import firebase from 'firebase'
+import firebase from "firebase";
 export default {
   name: "createPostComp",
   props: ["createData"],
   data() {
     return {
+      hideAddPost: false,
       newPost: {
         support: [],
         disregard: []
@@ -93,50 +99,35 @@ export default {
   computed: {},
 
   methods: {
-    addPost() {
+    async addPost() {
       this.newPost.support[0] = this.$auth.user.email;
       this.$store.dispatch("addPost", this.newPost);
       this.newPost = {};
     },
-
-    async encodeImage(event) { 
-    let imageData = event.target.files[0];
-      console.log('this is our event', event.target.files[0]);
-      const storageRef = firebase.storage().ref(`${imageData.name}`).put(imageData);
-        storageRef.on(`state_changed`,snapshot=>{
-        console.log((snapshot.bytesTransferred/snapshot.totalBytes)*100)
-      }, error=>{console.log(error.message)},
-      ()=>{
-        storageRef.snapshot.ref.getDownloadURL().then((url)=>{
-          this.newPost.picture =url;
-        });
-      }
+    async encodeImage(event) {
+      this.hideAddPost = true;
+      let imageData = event.target.files[0];
+      const storageRef = firebase
+        .storage()
+        .ref(`${imageData.name} - ${imageData.lastModified}`)
+        .put(imageData);
+      storageRef.on(
+        `state_changed`,
+        snapshot => {
+          console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        },
+        error => {
+          console.log(error.message);
+        },
+        () => {
+          storageRef.snapshot.ref.getDownloadURL().then(url => {
+            this.newPost.picture = url;
+            this.hideAddPost = false;
+          });
+        }
       );
-      },
-
-// NOTE tried with file reader
-  //  let reader = new FileReader();
-  //       reader.onload = event =>(
-  //         this.imageData = reader.result
-  //       )
-
-    // NOTE without firebase
-      // let file = event.target.files[0];
-      // let reader = new FileReader();
-      // reader.onload = event => {
-      //   this.newPost.picture = reader.result;
-      //   let img = document.createElement("img");
-      //   img.src = reader.result;
-      //   img.classList.add("img-fluid");
-      //   document.getElementById("imageUpload").innerHTML = "";
-      //   document.getElementById("imageUpload").appendChild(img);
-      // };
-      // reader.onerror = err => console.error(err);
-      // await reader.readAsDataURL(file);
-      // // NOTE sweet alert err for invalid picture with betasaur
-      // //   NOTE img stays in modal after creating post. fix it
-    // }
-
+      console.log("this is our event", event.target.files[0]);
+    }
   },
 
   components: {}
