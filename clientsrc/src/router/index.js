@@ -50,7 +50,7 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   // @ts-ignore
-  if (to.name != "home" || "noRoute" && router.app.$auth.user.email_verified == false) {
+  if (to.name != "home") {
     next({ name: "home" })
   }
   next()
