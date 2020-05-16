@@ -2,7 +2,7 @@
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow">
     <router-link class="navbar-brand font-pacifico" :to="{ name: 'home' }">Echo</router-link>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler bg-white"
       type="button"
       data-toggle="collapse"
       data-target="#navbarText"

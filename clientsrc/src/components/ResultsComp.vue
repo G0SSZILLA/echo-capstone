@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-2 px-0 font-didact text-center">{{supportPercent}}%</div>
     <div class="col-8 px-0 mt-1">
-    <div class="progress bg-warning" style="height:12px; border-radius: 1px;">
+    <div class="progress bg-secondary" style="height:12px; border-radius: 1px;">
       <div
         class="progress-bar" style="height:12px; border-radius: 1px"
         role="progressbar"
