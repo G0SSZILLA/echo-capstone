@@ -7,7 +7,7 @@
         <CreatePostComp class="fixed-top mt-5" v-if="$auth.isAuthenticated" />
       </div>
     </div>
-    <div style="height: 3.5rem"></div>
+    <div style="height: 3rem"></div>
     <PostComp v-for="post in posts" :key="post.id" :postData="post" />
     <div v-show="!lastLoaded" ref="bottomTrigger" class="col-12">
       <div class="spinner-grow spinner-grow-sm" role="status">
