@@ -27,8 +27,7 @@ export default {
   data() {
     return {
       newest: true,
-      showLoading: true,
-      time: ""
+      showLoading: true
     };
   },
 
@@ -38,29 +37,27 @@ export default {
       threshold: 0
     });
     observer.observe(this.$refs.bottomTrigger);
-  this.time = (new Date(Date.now())).toISOString()
   },
   computed: {
     posts() {
       if (this.newest) {
-        
         return this.$store.state.posts.sort(
           (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-)
-}
-},
+        );
+      }
+    },
     loadingPosts() {
       return this.$store.state.loadingPosts;
     },
     lastLoaded() {
       return this.$store.state.lastLoaded;
     },
-    timestamp(){
-      return this.$store.state.timestamp
+    timestamp() {
+      return this.$store.state.timestamp;
     }
   },
   methods: {
-       async loadNextPosts() {
+    async loadNextPosts() {
       if (this.loadingPosts == false && this.lastLoaded == false) {
         this.$store.commit("setLoadingPosts", true);
         await this.$store.dispatch("getPosts", this.posts.length);
