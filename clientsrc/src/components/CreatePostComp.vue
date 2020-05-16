@@ -99,28 +99,42 @@ export default {
       this.newPost = {};
     },
 
-    async encodeImage(event) {
-      let imageData = event.target.files[0];
+    async encodeImage(event) { 
+    let imageData = event.target.files[0];
       console.log('this is our event', event.target.files[0]);
-      const storageRef = firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
-      storageRef.snapshot.ref.getDownloadUrl().then((url)=>{this.picture=url;});
+      const storageRef = firebase.storage().ref(`${imageData.name}`).put(imageData);
+        storageRef.on(`state_changed`,snapshot=>{
+        console.log((snapshot.bytesTransferred/snapshot.totalBytes)*100)
+      }, error=>{console.log(error.message)},
+      ()=>{
+        storageRef.snapshot.ref.getDownloadURL().then((url)=>{
+          this.newPost.picture =url;
+        });
+      }
+      );
       },
 
+// NOTE tried with file reader
+  //  let reader = new FileReader();
+  //       reader.onload = event =>(
+  //         this.imageData = reader.result
+  //       )
 
-    //   let file = event.target.files[0];
-    //   let reader = new FileReader();
-    //   reader.onload = event => {
-    //     this.newPost.picture = reader.result;
-    //     let img = document.createElement("img");
-    //     img.src = reader.result;
-    //     img.classList.add("img-fluid");
-    //     document.getElementById("imageUpload").innerHTML = "";
-    //     document.getElementById("imageUpload").appendChild(img);
-    //   };
-    //   reader.onerror = err => console.error(err);
-    //   await reader.readAsDataURL(file);
-    //   // NOTE sweet alert err for invalid picture with betasaur
-    //   //   NOTE img stays in modal after creating post. fix it
+    // NOTE without firebase
+      // let file = event.target.files[0];
+      // let reader = new FileReader();
+      // reader.onload = event => {
+      //   this.newPost.picture = reader.result;
+      //   let img = document.createElement("img");
+      //   img.src = reader.result;
+      //   img.classList.add("img-fluid");
+      //   document.getElementById("imageUpload").innerHTML = "";
+      //   document.getElementById("imageUpload").appendChild(img);
+      // };
+      // reader.onerror = err => console.error(err);
+      // await reader.readAsDataURL(file);
+      // // NOTE sweet alert err for invalid picture with betasaur
+      // //   NOTE img stays in modal after creating post. fix it
     // }
 
   },
