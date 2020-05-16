@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow">
-    <router-link class="navbar-brand font-pacifico" :to="{ name: 'home' }">Echo</router-link>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow pb-0">
+    <router-link class="navbar-brand font-pacifico" :to="{ name: 'home' }" style="font-size: 1.5rem">Echo</router-link>
     <button
-      class="navbar-toggler bg-white"
+      class="navbar-toggler border-0"
       type="button"
       data-toggle="collapse"
       data-target="#navbarText"
