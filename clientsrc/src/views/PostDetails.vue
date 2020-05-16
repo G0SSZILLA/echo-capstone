@@ -117,7 +117,7 @@ export default {
       request.setRequestHeader("Content-type", "application/json");
 
       var params = {
-        username: this.$auth.user.name,
+        username: "Captain Hook",
         avatar_url: "",
         content:
           "User " +
@@ -125,7 +125,7 @@ export default {
           " reported the post id " +
           this.post.id +
           " from user " +
-          this.post.creator.name +
+          this.post.creatorEmail +
           ' for the post "' +
           this.post.title +
           '".'
