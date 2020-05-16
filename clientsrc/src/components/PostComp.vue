@@ -1,6 +1,6 @@
 <template>
   <div class="postComp">
-    <div class="card shadow my-2 mx-0">
+    <div class="card bg-white shadow my-2 mx-0">
       <div class="row">
         <div class="col-6">
           <!-- <p class="ml-2 text-left">{{postData.creatorEmail}}</p> -->
@@ -9,7 +9,7 @@
           <!-- <p class="mr-2 text-right">{{date()}}</p> -->
         </div>
       </div>
-      <img class="card-img-top" v-if="postData.picture" :src="postData.picture" />
+      <img class="card-img-top shadow" v-if="postData.picture" :src="postData.picture" />
       <div class="card-body pb-2">
         <h4 class="card-title">{{postData.title}}</h4>
         <p
@@ -21,13 +21,13 @@
           <div v-if="$auth.user.email_verified">
             <a
               href="#"
-              class="btn btn-primary"
+              class="btn btn-primary mb-3 text-white"
               v-show="showButton"
               @click.prevent="chooseSupport()"
             >support</a>
             <a
               href="#"
-              class="btn btn-primary"
+              class="btn btn-secondary mb-3 text-white"
               v-show="showButton"
               @click.prevent="chooseDisregard()"
             >disregard</a>
