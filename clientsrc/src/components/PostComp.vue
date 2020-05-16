@@ -1,5 +1,5 @@
 <template>
-  <div class="postComp">
+  <div class="postComp font-didact">
     <div class="card bg-white shadow my-3 mx-0">
       <div class="row">
         <div class="col-6">
@@ -11,28 +11,28 @@
       </div>
       <img class="card-img-top shadow" v-if="postData.picture" :src="postData.picture" />
       <div class="card-body pb-2">
-        <h4 class="card-title">{{postData.title}}</h4>
+        <h4 class="card-title font-didact mb-1">{{postData.title}}</h4>
         <p
           @click="seeMoreContent()"
           v-show="displayContent"
-          :class="{'overflow-hidden': !showMore, 'heightSomething': !showMore, 'card-text': displayContent}"
+          :class=" {'overflow-hidden': !showMore, 'heightSomething': !showMore, 'card-text': displayContent}"
         >{{postData.content}}</p>
         <div class="card-footer px-2 pb-0 pt-3 bg-white" v-if="$auth.isAuthenticated">
           <div>
             <a
               href="#"
-              class="btn btn-primary mb-3 text-white"
+              class="btn btn-primary mb-3 text-white font-didact"
               v-show="showButton"
               @click.prevent="chooseSupport()"
             >support</a>
             <a
               href="#"
-              class="btn btn-secondary mb-3 text-white"
+              class="btn btn-secondary mb-3 text-white font-didact"
               v-show="showButton"
               @click.prevent="chooseDisregard()"
             >disregard</a>
             <ResultsComp v-if="!showButton" :postData="postData" />
-            <p class="mb-0 pb-0" @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
+            <p class="mb-0 pb-0 font-didact" @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
           </div>
         </div>
         <div v-else>
