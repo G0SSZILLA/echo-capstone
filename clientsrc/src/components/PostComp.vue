@@ -1,6 +1,6 @@
 <template>
   <div class="postComp">
-    <div class="card bg-white shadow my-2 mx-0">
+    <div class="card bg-white shadow my-3 mx-0">
       <div class="row">
         <div class="col-6">
           <!-- <p class="ml-2 text-left">{{postData.creatorEmail}}</p> -->
