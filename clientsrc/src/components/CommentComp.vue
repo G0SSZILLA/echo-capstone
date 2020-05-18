@@ -35,6 +35,8 @@
 
 
 <script>
+import { discordWebhook } from "../authConfig";
+
 export default {
   name: "commentComp",
   props: ["commentData"],
@@ -62,10 +64,7 @@ export default {
     },
     reportComment() {
       var request = new XMLHttpRequest();
-      request.open(
-        "POST",
-        "https://discordapp.com/api/webhooks/710979982507114606/IigwL78AriQakiZnchhwQ1m4R4_oKJAKqSiYV0c6VCHFrWH66TQsynUj_jcQOybJZ0di"
-      );
+      request.open("POST", discordWebhook);
 
       request.setRequestHeader("Content-type", "application/json");
 

@@ -65,6 +65,7 @@
 import ResultsComp from "../components/ResultsComp";
 import CommentComp from "../components/CommentComp";
 import CreateCommentComp from "../components/CreateCommentComp";
+import { discordWebhook } from "../authConfig";
 export default {
   name: "postDetails",
   data() {
@@ -109,10 +110,7 @@ export default {
     },
     reportPost() {
       var request = new XMLHttpRequest();
-      request.open(
-        "POST",
-        "https://discordapp.com/api/webhooks/710979982507114606/IigwL78AriQakiZnchhwQ1m4R4_oKJAKqSiYV0c6VCHFrWH66TQsynUj_jcQOybJZ0di"
-      );
+      request.open("POST", discordWebhook);
 
       request.setRequestHeader("Content-type", "application/json");
 
