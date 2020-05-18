@@ -64,7 +64,10 @@ export default {
     },
     reportComment() {
       var request = new XMLHttpRequest();
-      request.open("POST", discordWebhook);
+      request.open(
+        "POST",
+        "https://discordapp.com/api/webhooks/" + discordWebhook
+      );
 
       request.setRequestHeader("Content-type", "application/json");
 
