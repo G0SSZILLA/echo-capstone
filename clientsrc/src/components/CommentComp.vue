@@ -1,7 +1,9 @@
 <template>
   <div class="commentComp">
     <div class="row justify-content-center border-top py-2">
-      <div class="col-10"></div>
+      <div class="col-10">
+        
+      </div>
 
       <div class="dropdown show">
         <button
@@ -26,10 +28,10 @@
         </div>
       </div>
     </div>
-    <div class="col-12 text-left">
-      <h6>{{commentData.content}}</h6>
-      <p style="font-size: 13px">{{date()}}</p>
+    <div class="col-10 text-left ml-0">
+      <h5><i class="far fa-user-circle text-black pr-2" aria-hidden="true"></i>{{commentData.content}}</h5>
     </div>
+    <p class="text-right" style="font-size: 13px">{{date()}}</p>
   </div>
 </template>
 

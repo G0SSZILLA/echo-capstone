@@ -50,7 +50,7 @@
       <div class="card-title border-bottom mt-2 mx-3 justify-content-center font-didact">
         <h4>comments</h4>
       </div>
-      <div class="card-body mb-5">
+      <div class="card-body mt-0 pl-0 mb-5">
         <commentComp v-for="comment in comments" :commentData="comment" :key="comment.id" />
       </div>
     </div>
