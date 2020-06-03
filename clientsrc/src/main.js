@@ -4,9 +4,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { Auth0Plugin } from "@bcwdev/auth0-vue";
-import { domain, clientId, audience } from "./authConfig";
+import { domain, clientId, audience, firebaseAuthConfigData } from "./authConfig";
 import axios from "axios";
 import firebase from 'firebase';
+
 
 Vue.use(Auth0Plugin, {
     domain,
@@ -21,17 +22,9 @@ Vue.use(Auth0Plugin, {
     }
 });
 
-var firebaseConfig = {
-    apiKey: "AIzaSyC6caBv_PUysA60Ej569_gGA88ONbsdtXA",
-    authDomain: "betasaur-echo-1.firebaseapp.com",
-    databaseURL: "https://betasaur-echo-1.firebaseio.com",
-    projectId: "betasaur-echo-1",
-    storageBucket: "betasaur-echo-1.appspot.com",
-    messagingSenderId: "992394261094",
-    appId: "1:992394261094:web:e2f324aeb0a37753f8b3a7"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+var firebaseConfig = firebaseAuthConfigData;
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 const app = new Vue({
     router,

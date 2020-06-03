@@ -26,9 +26,9 @@
         </div>
       </div>
     </div>
-    <div class="col-12">
-      <h5>{{commentData.content}}</h5>
-      <p style="font-size: 13px">- {{commentData.creator.name}}</p>
+    <div class="col-12 text-left">
+      <h6>{{commentData.content}}</h6>
+      <p style="font-size: 13px">{{date()}}</p>
     </div>
   </div>
 </template>
@@ -87,6 +87,10 @@ export default {
       };
 
       request.send(JSON.stringify(params));
+    },
+    date() {
+      let date = this.commentData.updatedAt.split("T");
+      return date[0];
     }
   },
   components: {}

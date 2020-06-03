@@ -39,6 +39,7 @@
           <p class="card-text">{{post.content}}</p>
         </div>
         <div class="card-footer px-0">
+          <h3>{{thread}}'s Thread</h3>
           <!-- TODO insert progress bar -->
           <ResultsComp v-if="post.id" :postData="post" :key="post.id" />
         </div>
@@ -69,7 +70,10 @@ import { discordWebhook } from "../authConfig";
 export default {
   name: "postDetails",
   data() {
-    return {};
+    return {
+      thread: "",
+    };
+
   },
   mounted() {
     this.$store.dispatch("getPost", this.$route.params.postId);
@@ -82,8 +86,10 @@ export default {
         this.post.support &&
         this.post.support.find(i => i == this.$auth.user.email)
       ) {
+        this.thread = "Support"
         return this.$store.state.comments.filter(i => i.support == true);
       } else {
+        this.thread = "Disregard"
         return this.$store.state.comments.filter(i => i.support == false);
       }
     },

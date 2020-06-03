@@ -32,7 +32,7 @@
               @click.prevent="chooseDisregard()"
             >disregard</a>
             <ResultsComp v-if="!showButton" :postData="postData" />
-            <p class="mb-0 pb-0 font-didact" @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
+            <p class="mb-0 pb-0 font-didact outline" @click="goToDetails()" v-show="!showButton">Join the Conversation</p>
           </div>
         </div>
         <div v-else>
@@ -141,10 +141,10 @@ export default {
       }
     },
 
-    date() {
-      let date = this.postData.updatedAt.split("T");
-      return date[0];
-    }
+    // date() {
+    //   let date = this.postData.updatedAt.split("T");
+    //   return date[0];
+    // }
     // hideLoading() {
     //   this.$emit("reached-last-post");
     //   console.log("called from hideLoading");

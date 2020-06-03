@@ -5,8 +5,7 @@
       id="orangeModalSubscription"
       tabindex="-1"
       aria-labelledby="myModalLabel"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div class="modal-dialog modal-notify modal-warning" role="document">
         <!--Content-->
         <div class="modal-content m-auto">
