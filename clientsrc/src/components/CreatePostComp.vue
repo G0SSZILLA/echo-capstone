@@ -107,8 +107,8 @@ export default {
     async addPost() {
       this.newPost.support[0] = this.$auth.user.email;
       this.$store.dispatch("addPost", this.newPost);
-      this.newPost = {};
-      window.location.reload()
+      // this.newPost = {};
+      // window.location.reload()
     },
     async encodeImage(event) {
       this.hideAddPost = true;

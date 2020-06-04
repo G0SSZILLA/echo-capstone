@@ -134,10 +134,11 @@ export default new Vuex.Store({
       try {
         let res = await api.post("posts", postData);
         console.log("addPost from store", postData);
+        window.location.reload()
         // NOTE do we want this to push us to the post details page
         // dispatch("getPosts");
       } catch (error) {
-        console.error(error, "addPost in store failing");
+        console.error(error, "addPost in store failing");S
       }
     },
     async deletePost({ commit, dispatch }, postId) {
