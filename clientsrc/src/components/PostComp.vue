@@ -1,5 +1,5 @@
 <template>
-  <div class="postComp font-didact">
+  <div class="postComp font-didact mx-auto col-md-7">
     <div class="card bg-white shadow my-3 mx-0">
       <div class="row">
         <div class="col-6">
