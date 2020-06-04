@@ -138,7 +138,7 @@ export default new Vuex.Store({
         // NOTE do we want this to push us to the post details page
         // dispatch("getPosts");
       } catch (error) {
-        console.error(error, "addPost in store failing");S
+        console.error(error, "addPost in store failing");
       }
     },
     async deletePost({ commit, dispatch }, postId) {
